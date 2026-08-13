@@ -1,0 +1,91 @@
+/* For juana Fonts */
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/juana-thin.otf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/Juana-Light.otf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/Juana-Regular.otf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/juana-medium.otf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/juana-semibold.otf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/juana-bold.otf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "juana";
+  src: url(../fonts/Juana-Black.otf);
+  font-weight: 900;
+}
+
+/* for BrutGrotesque fonts */
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Thin.otf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Extralight.otf);
+  font-weight: 350;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Light.otf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Book.otf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Medium.otf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Bold.otf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Extrabold.otf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "BrutGrotesque";
+  src: url(../fonts/BrutGrotesque-Black.otf);
+  font-weight: 900;
+}

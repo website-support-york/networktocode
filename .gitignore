@@ -1,0 +1,184 @@
+# =============================================================================
+# WordPress — Network to Code (Local / staging)
+# Git root: app/public
+# =============================================================================
+# Strategy:
+#   - Ignore WordPress core (install separately on each environment)
+#   - Ignore third-party plugins/themes (install via Composer, WP-CLI, or deploy)
+#   - Track only custom theme, custom plugins, and project-specific mu-plugins
+#   - Ignore uploads, cache, logs, secrets, and machine-specific config
+# =============================================================================
+
+# --- OS & editor -----------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+.cursor/
+
+# --- Environment & secrets -------------------------------------------------
+.env
+.env.*
+!.env.example
+wp-config.php
+wp-config-local.php
+*.pem
+*.key
+*.crt
+auth.json
+
+# Local by Flywheel / machine-specific PHP config
+.user.ini
+local-xdebuginfo.php
+app/.envrc
+
+# --- WordPress core --------------------------------------------------------
+# Core is managed outside git; update via Local, WP-CLI, or your deploy pipeline.
+/wp-admin/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
+/favicon.ico
+/apple-touch-icon*.png
+
+# Keep sample config as reference
+wp-config-sample.php
+
+# --- wp-content: ignore almost everything, then whitelist custom code ------
+/wp-content/index.php
+/wp-content/advanced-cache.php
+/wp-content/object-cache.php
+/wp-content/db.php
+/wp-content/debug.log
+/wp-content/__wpe_redirect.log
+/wp-content/*.log
+
+# Uploads & generated media
+/wp-content/uploads/
+!/wp-content/uploads/.gitkeep
+
+# Cache & optimization
+/wp-content/cache/
+/wp-content/wp-rocket-config/
+/wp-content/rocket-cache/
+/wp-content/boost-cache/
+/wp-content/webp-express/
+/wp-content/et-cache/
+/wp-content/w3tc-config/
+
+# Backups, upgrades, temp
+/wp-content/upgrade/
+/wp-content/backup*/
+/wp-content/backups/
+/wp-content/updraft/
+/wp-content/ai1wm-backups/
+/wp-content/wflogs/
+/wp-content/aios/
+/wp-content/uploads/aios/
+/wp-content/temp/
+
+# Third-party plugins (install on deploy — do not commit)
+/wp-content/plugins/*
+!/wp-content/plugins/index.php
+
+# Custom plugins (whitelist)
+!/wp-content/plugins/staging-to-live-sync/
+!/wp-content/plugins/sef-gutenburg-block/
+!/wp-content/plugins/sef-bulk-markdown-importer/
+!/wp-content/plugins/york-website-audit/
+
+# Plugin archives & accidental copies
+/wp-content/plugins/**/*.zip
+/wp-content/plugins/**/__*
+
+# Third-party themes
+/wp-content/themes/*
+!/wp-content/themes/index.php
+!/wp-content/themes/network-to-code/
+
+# Theme archives & backups
+/wp-content/themes/**/*.zip
+/wp-content/themes/**/*backup*
+/wp-content/themes/**/*-old*
+
+# MU-plugins: ignore by default, whitelist project files
+/wp-content/mu-plugins/*
+!/wp-content/mu-plugins/index.php
+!/wp-content/mu-plugins/aios-firewall-loader.php
+!/wp-content/mu-plugins/htpm-mu-plugin.php
+
+# Languages (usually generated or downloaded)
+/wp-content/languages/
+
+# --- Security / firewall bootstrap (environment paths may differ) ------------
+# Track aios-bootstrap.php if your team standardizes it; ignore if paths vary per env.
+# /.user.ini is already ignored above.
+/aios-bootstrap.php
+/wordfence-waf.php
+
+# --- Dependencies ----------------------------------------------------------
+node_modules/
+vendor/
+bower_components/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+composer.lock
+
+# Re-allow vendor inside tracked custom plugins if they use Composer
+!/wp-content/plugins/staging-to-live-sync/vendor/
+
+# --- Build artifacts -------------------------------------------------------
+*.map
+.sass-cache/
+*.css.map
+# Uncomment if you compile SCSS in CI and only commit source:
+# /wp-content/themes/network-to-code/assets/css/*.css
+# !/wp-content/themes/network-to-code/assets/css/critical.css
+
+# --- Logs & debug ----------------------------------------------------------
+*.log
+logs/
+error_log
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- WP Engine / hosting ---------------------------------------------------
+.wpe-pull-ignore
+.wpe-push-ignore
+.tmb/
+
+# --- Misc project junk -----------------------------------------------------
+test.php
+/test.php
+*.sql
+*.sql.gz
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.bak
+*.tmp
+*.temp
+/cache/
+
+# --- Optional: uncomment to ignore compiled assets (source-only workflow) ---
+# /wp-content/themes/network-to-code/assets/css/
+# /wp-content/themes/network-to-code/assets/scss/*.css

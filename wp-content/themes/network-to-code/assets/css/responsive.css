@@ -1,0 +1,409 @@
+@media screen and (max-width: 1500px) {
+  html {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  html {
+    font-size: 12px;
+  }
+  section.who-we-are .single-counter .circle div {
+    font-size: 2.2rem;
+  }
+  section.who-we-are .single-counter .circle span.post-counter {
+    top: 69%;
+    width: 80% !important;
+    display: block;
+  }
+  .desktop-nav {
+    right: 5rem;
+  }
+  section.clientele h3 {
+    padding-left: 0;
+  }
+}
+@media screen and (max-width: 991px) {
+  html {
+    font-size: 10px;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .sidemenu_btn {
+    display: block;
+  }
+  .sidemenu-btn.desktop-nav {
+    display: block;
+    top: 10px;
+    right: 30px !important;
+  }
+  .home-header {
+    padding: 10rem 0 5rem 0;
+  }
+  .home-header h2 {
+    min-height: auto;
+  }
+  .main-logo {
+    position: absolute;
+    left: 2.5rem;
+    top: 3.25rem;
+  }
+  section.video-bg img {
+    height: 400px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  section.who-we-are .invert {
+    padding: 6rem 0;
+  }
+  .vertical-lines {
+    display: none;
+  }
+  section.clientele .logo-box {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  section.who-we-are .single-counter .circle {
+    padding: 1rem 1rem;
+  }
+  section.who-we-are .single-counter .circle div {
+    font-size: 3.25rem;
+  }
+  section.who-we-are .single-counter .circle span.post-counter,
+  section.who-we-are .single-counter .circle span.pre-counter {
+    font-size: 1.25rem !important;
+  }
+  section.services .col-lg-3.col-md-6 {
+    margin-bottom: 3rem;
+  }
+  section .container-fluid {
+    padding: 20px !important;
+  }
+  section.help-to-grow .border-left-1 {
+    border-left: 0;
+  }
+  section.services .service-box {
+    transform: translateX(0px);
+  }
+  section.hero-section p, section.hero-section h1 {
+    text-align: center !important;
+  }
+  section.hero-section a.btn.theme-btn {
+    margin: 15px auto 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 10px;
+  }
+  section.who-we-are .single-counter .circle {
+    padding: 1rem 1rem;
+  }
+  section.who-we-are .single-counter .circle div {
+    font-size: 4.25rem;
+  }
+  section.who-we-are .single-counter .circle span.post-counter,
+  section.who-we-are .single-counter .circle span.pre-counter {
+    font-size: 2.25rem !important;
+  }
+  section.case-studies .container-fluid h2 {
+    font-size: 3rem !important;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content {
+    display: block;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content .cs-button {
+    display: block !important;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content .cs-button a {
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem 0 !important;
+    display: inline-block;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content p {
+    font-size: 1.75rem;
+    line-height: 2.75rem;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study h3 {
+    font-size: 2rem;
+    line-height: 2.75rem;
+  }
+  section.technology .header-img {
+    max-width: 8rem;
+  }
+  section.technology p {
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+    opacity: 0.87;
+  }
+  section.technology .single-tech:nth-child(1) {
+    margin-top: 3rem;
+  }
+  section.technology .single-tech p {
+    font-size: 1.25rem !important;
+    line-height: 2rem !important;
+  }
+  section.technology .single-tech .row .col-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  section.technology .single-tech .row .col-6 div {
+    text-align: center;
+  }
+  section.technology .single-tech .row .col-6 div h3 {
+    font-size: 1.75rem;
+  }
+  section.technology h2 {
+    font-size: 3rem;
+  }
+  section.clientele .logo-box {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  section.clientele h3 {
+    font-size: 2.5rem !important;
+  }
+  section.services .service-box p {
+    font-size: 1.5rem !important;
+    opacity: 0.87;
+  }
+  section.services .service-box ol > li {
+    font-size: 1.5rem !important;
+    line-height: 2.75rem !important;
+    opacity: 0.87;
+  }
+  section.services .service-box .content-box p {
+    font-size: 1.5rem !important;
+  }
+  section.services .service-box hr {
+    font-size: 3.5rem !important;
+  }
+  section.services .service-box h3,
+  section.services .service-box b {
+    font-size: 3.5rem !important;
+  }
+  section.services .service-box a.btn-theme {
+    margin: 3rem 0;
+    font-size: 1.5rem !important;
+    padding: 1rem 4rem !important;
+  }
+  section.your-partner h2 {
+    font-size: 2.5rem;
+  }
+  section.your-partner .single-partner {
+    padding: 1.625rem 0 1.5rem 0;
+    border-top: 0;
+  }
+  section.your-partner .single-partner:nth-child(1) {
+    border-top: 3px solid #373737;
+  }
+  section.your-partner .single-partner p {
+    font-size: 1.75rem;
+  }
+  section.your-partner .single-partner h3 {
+    font-size: 2.25rem;
+  }
+  section.your-partner .col-lg-2.col-md-6:nth-child(1) .single-partner {
+    border-top: 3px solid #373737;
+  }
+  section.help-to-grow .border-left-1 {
+    border-left: 0;
+  }
+  .community .community-content ul li {
+    text-align: left;
+  }
+}
+@media screen and (max-width: 576px) {
+  html {
+    font-size: 8px;
+  }
+  .side-menu {
+    width: 80%;
+  }
+  .sidemenu-btn span {
+    height: inherit;
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    transform: scaleX(8) scaleY(1.5);
+    display: block;
+    height: 0px;
+  }
+  .sidemenu-btn li:nth-child(2) span {
+    transform: scaleX(8) scaleY(1.5) translateY(-3px);
+  }
+  .sidemenu-btn li:nth-child(3) span {
+    transform: scaleX(8) scaleY(1.5) translateY(-6px);
+  }
+  .sidemenu-btn.desktop-nav {
+    display: block;
+    top: 14px;
+    right: 33px !important;
+  }
+  section.who-we-are .single-counter .circle {
+    padding: 0;
+  }
+  section.who-we-are .single-counter {
+    padding: 1rem;
+  }
+  section.who-we-are .single-counter .circle span.post-counter,
+  section.who-we-are .single-counter .circle span.pre-counter {
+    font-size: 1.25rem !important;
+  }
+  section.who-we-are .single-counter .circle div {
+    font-size: 3.5rem;
+  }
+  section.clientele h3 {
+    font-size: 3rem !important;
+  }
+  .side-menu .inner-wrapper ul.navbar-nav li a {
+    font-size: 1.75rem !important;
+  }
+  .side-menu .inner-wrapper ul.navbar-nav {
+    margin-top: 5rem;
+  }
+  .home-header {
+    padding: 11rem 0 5rem 0;
+  }
+  .home-header h2 {
+    font-size: 4rem;
+    line-height: 5.5rem;
+    min-height: 177px;
+  }
+  section.clientele .logo-box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .data-fade-img[data-scroll=in] img {
+    opacity: 1;
+    transform: translateY(0) scale(0.8);
+  }
+  section.technology .header-img {
+    max-width: 8rem;
+  }
+  section.technology p {
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+    opacity: 0.87;
+  }
+  section.technology .single-tech:nth-child(1) {
+    margin-top: 3rem;
+  }
+  section.technology .single-tech p {
+    font-size: 1.25rem !important;
+    line-height: 2rem !important;
+  }
+  section.technology .single-tech .row .col-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  section.technology .single-tech .row .col-6 div {
+    text-align: center;
+  }
+  section.technology .single-tech .row .col-6 div h3 {
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+  }
+  section.technology h2 {
+    font-size: 3.5rem;
+  }
+  section.case-studies .container-fluid h2 {
+    font-size: 3rem !important;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content {
+    display: block;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content .cs-button {
+    display: block !important;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content .cs-button a {
+    font-size: 2rem;
+    margin: 3rem 0 1rem 0 !important;
+    display: inline-block;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study .cs-content p {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+  section.case-studies .container-fluid .case-study-box .single-case-study h3 {
+    font-size: 2.25rem;
+    line-height: 3rem;
+  }
+  section.services .service-box p {
+    font-size: 1.75rem !important;
+    opacity: 0.87;
+  }
+  section.services .service-box ol > li {
+    font-size: 1.75rem !important;
+    line-height: 3rem !important;
+    opacity: 0.87;
+  }
+  section.services .service-box .content-box p {
+    font-size: 2rem !important;
+  }
+  section.services .service-box hr {
+    font-size: 3.5rem !important;
+  }
+  section.services .service-box h3,
+  section.services .service-box b {
+    font-size: 4.5rem !important;
+  }
+  section.services .service-box a.btn-theme {
+    margin: 4rem 0;
+    font-size: 2rem !important;
+    padding: 1rem 6rem !important;
+  }
+  section.your-partner h2 {
+    font-size: 3rem;
+  }
+  section.your-partner .single-partner {
+    padding: 1.625rem 0 1.5rem 0;
+    border-top: 0;
+  }
+  section.your-partner .single-partner:nth-child(1) {
+    border-top: 3px solid #373737;
+  }
+  section.your-partner .single-partner p {
+    font-size: 1.75rem;
+  }
+  section.your-partner .single-partner h3 {
+    font-size: 2.25rem;
+  }
+  section.your-partner .col-lg-2.col-md-6:nth-child(1) .single-partner {
+    border-top: 3px solid #373737;
+  }
+  section.help-to-grow .red-overlay a h2 {
+    font-size: 4rem;
+    width: 100%;
+  }
+  section.footer input.form-control {
+    font-size: 1.5rem;
+  }
+  section.footer .social-links a {
+    font-size: 1.5rem;
+  }
+  section.footer .subscribe button img {
+    width: 10px;
+  }
+  section.footer .copyright {
+    font-size: 1.25rem;
+  }
+  .main-logo {
+    left: 2.75rem;
+    top: 3.75rem;
+  }
+  section.services .col-lg-3.col-md-6 {
+    margin-bottom: 1rem;
+  }
+  section .container-fluid {
+    padding: 20px !important;
+  }
+  .sada-assessment .col-sm-6.mt-2 {
+    margin-bottom: 30px;
+  }
+  .sada-assessment .col-sm-6.mt-2:last-child {
+    margin-bottom: 0;
+  }
+}/*# sourceMappingURL=responsive.css.map */

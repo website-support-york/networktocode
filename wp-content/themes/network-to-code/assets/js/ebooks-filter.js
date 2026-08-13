@@ -1,0 +1,1 @@
+url: ajax_vars.ajaxurl,
