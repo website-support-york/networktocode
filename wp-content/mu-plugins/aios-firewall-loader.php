@@ -1,7 +1,6 @@
 <?php
 // Begin AIOWPSEC Firewall
-$aios_bootstrap = dirname( __DIR__, 2 ) . '/aios-bootstrap.php';
-if ( file_exists( $aios_bootstrap ) ) {
-	include_once $aios_bootstrap;
+if (file_exists('/nas/content/live/net2codestg/aios-bootstrap.php')) {
+	include_once('/nas/content/live/net2codestg/aios-bootstrap.php');
 }
 // End AIOWPSEC Firewall

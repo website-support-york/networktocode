@@ -177,7 +177,7 @@ $recent_posts_query = new WP_Query(array(
                             <?php if ($recent_posts_query->have_posts()) : ?>
                                 <?php while ($recent_posts_query->have_posts()) : $recent_posts_query->the_post(); ?>
                                     <div class="recent-post-card">
-                                        <h6 class="date"><?php echo the_date('F j, Y'); ?></h6>
+                                        <h6 class="date"><?php echo esc_html(get_the_date('F j, Y')); ?></h6>
                                         <a class="recent-post-button" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                     </div>
                                 <?php endwhile; ?>

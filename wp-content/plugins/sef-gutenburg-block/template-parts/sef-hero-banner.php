@@ -235,14 +235,33 @@ $icon                             = get_field('icon');
 
 
                 </div>
-                <?php if (!empty ($sef_hero_banner_slider_inner_image )) { ?>
+                <?php if (!empty($sef_hero_banner_slider_inner_image)) { 
+                $image_id = $sef_hero_banner_slider_inner_image['ID'];
+                $medium_image = wp_get_attachment_image_src($image_id, 'medium');
+                ?>
                 <div class="item-right">
-                  <img width="720" height="360" decoding="async"  fetchpriority="high" src="<?php echo $sef_hero_banner_slider_inner_image['url']  ?>" class="img-fluid" alt="<?php echo $sef_hero_banner_slider_inner_image['alt']  ?>">
-                  <?php if (!empty ($sef_hero_banner_slider_inner_image_caption )) { ?>
-                    <h2><?php echo $sef_hero_banner_slider_inner_image_caption; ?></h2>
-                  <?php } ?>
+                    <picture>
+                        <source 
+                            media="(max-width: 767px)" 
+                            srcset="<?php echo esc_url($medium_image[0]); ?>"
+                        >
+
+                        <img 
+                            width="720" 
+                            height="360" 
+                            decoding="async" 
+                            fetchpriority="high"
+                            src="<?php echo esc_url($sef_hero_banner_slider_inner_image['url']); ?>"
+                            class="img-fluid"
+                            alt="<?php echo esc_attr($sef_hero_banner_slider_inner_image['alt']); ?>"
+                        >
+                    </picture>
+
+                    <?php if (!empty($sef_hero_banner_slider_inner_image_caption)) { ?>
+                        <h2><?php echo esc_html($sef_hero_banner_slider_inner_image_caption); ?></h2>
+                    <?php } ?>
                 </div>
-                <?php } ?>
+            <?php } ?>
 
 
                 <?php if (empty ($sef_hero_banner_slider_button_inside || $sef_hero_banner_slider_second_button_inside )) { ?>

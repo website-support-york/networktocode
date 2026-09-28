@@ -1,3 +1,4 @@
+jQuery(function ($) {
 $(".js-navigate").on("click", function () {
   $(".js-navigate").removeClass("disabled");
   var current = $(".recipe.active");
@@ -25,3 +26,4 @@ function checkForDisable() {
     $(".js-left").addClass("disabled");
   }
 }
+});

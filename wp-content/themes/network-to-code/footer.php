@@ -286,85 +286,88 @@ class="col-md-12 col-lg-6 col-sm-12 wow pt-3 slideInLeft wow animate__animated a
 
 
 <script>
+jQuery(function ($) {
+
   function capitalizeFirstLetter(string){
       return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  $(document).ready(function() {
+ 
+    // $(document).ready(function() {
 
-    $('.navbar').mouseout(function() {
-      $('.desktop-dropdown-menu').removeClass('active');
-    });
-    
-    $('nav:not(.mob-nav) li.menu-item-type-custom a').mouseover(function() {
-      var link = $(this).html().replaceAll(' ','-');
-      $('.desktop-dropdown-menu').removeClass('active');
-      $(`[data-menu-parent=${link}] .column`).hide();
-      $(`[data-menu-parent=${link}] .column`).fadeIn();
-      $(`.desktop-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
-    });
-    $('li.menu-item-type-custom').mouseover(function() {
-      var link = $(this).find('a').html().replaceAll(' ','-');
-      $('.desktop-dropdown-menu').removeClass('active');
-      $(`.desktop-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
-    });
-    $('.mobile-menu-title').click(function() {
-      $('nav.mob-nav').fadeIn();
-      $('.mobile-dropdown-menu').removeClass('active');
-      $('.desktop-dropdown-menu').removeClass('active');
-    });
-    $('nav.mob-nav li.menu-item-type-custom a').click(function() {
-      $('nav.mob-nav').hide();
-      var link = $(this).html().replaceAll(' ','-');
-      $('.mobile-dropdown-menu').removeClass('active');
-      $(`[data-menu-parent=${link}] .column`).hide();
-      $(`[data-menu-parent=${link}] .column`).fadeIn();
-      $(`.mobile-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
-    });
-    $('.desktop-dropdown-menu').mouseover(function(e) {
-      e.preventDefault();
-      $(this).addClass('active');
-    });
+      $('.navbar').mouseout(function() {
+        $('.desktop-dropdown-menu').removeClass('active');
+      });
+      
+      $('nav:not(.mob-nav) li.menu-item-type-custom a').mouseover(function() {
+        var link = $(this).html().replaceAll(' ','-');
+        $('.desktop-dropdown-menu').removeClass('active');
+        $(`[data-menu-parent=${link}] .column`).hide();
+        $(`[data-menu-parent=${link}] .column`).fadeIn();
+        $(`.desktop-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
+      });
+      $('li.menu-item-type-custom').mouseover(function() {
+        var link = $(this).find('a').html().replaceAll(' ','-');
+        $('.desktop-dropdown-menu').removeClass('active');
+        $(`.desktop-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
+      });
+      $('.mobile-menu-title').click(function() {
+        $('nav.mob-nav').fadeIn();
+        $('.mobile-dropdown-menu').removeClass('active');
+        $('.desktop-dropdown-menu').removeClass('active');
+      });
+      $('nav.mob-nav li.menu-item-type-custom a').click(function() {
+        $('nav.mob-nav').hide();
+        var link = $(this).html().replaceAll(' ','-');
+        $('.mobile-dropdown-menu').removeClass('active');
+        $(`[data-menu-parent=${link}] .column`).hide();
+        $(`[data-menu-parent=${link}] .column`).fadeIn();
+        $(`.mobile-dropdown-menu[data-menu-parent=${link}]`).addClass('active');
+      });
+      $('.desktop-dropdown-menu').mouseover(function(e) {
+        e.preventDefault();
+        $(this).addClass('active');
+      });
 
-    if (window.location.href.indexOf("#network-operations") > -1) { 
-      setTimeout(function () {
-        $('html, body').animate({
-            scrollTop: $('#workflow-details').offset().top
-        }, 2000);
-      }, 2500);
-    }
-    var pathname = window.location.pathname; 
-    var splitURL = pathname.toString().split("/");
-    var newUrlVar1 = splitURL['1'];
-    var newUrlVar2 = splitURL['2'];
-    if (newUrlVar1 != "") {
-      newUrlVar1 = capitalizeFirstLetter(newUrlVar1.replace(/\s+/g, '-'));
-      $('#menu-desktop-header-menu li a.nav-link').removeClass('active');
-      $('#menu-desktop-header-menu li a#sap-'+newUrlVar1).addClass('active');
-    }
-  });
+      if (window.location.href.indexOf("#network-operations") > -1) { 
+        setTimeout(function () {
+          $('html, body').animate({
+              scrollTop: $('#workflow-details').offset().top
+          }, 2000);
+        }, 2500);
+      }
+      var pathname = window.location.pathname; 
+      var splitURL = pathname.toString().split("/");
+      var newUrlVar1 = splitURL['1'];
+      var newUrlVar2 = splitURL['2'];
+      if (newUrlVar1 != "") {
+        newUrlVar1 = capitalizeFirstLetter(newUrlVar1.replace(/\s+/g, '-'));
+        $('#menu-desktop-header-menu li a.nav-link').removeClass('active');
+        $('#menu-desktop-header-menu li a#sap-'+newUrlVar1).addClass('active');
+      }
+    // });
+ 
 
+    // $(document).ready(function(){
 
-  $(document).ready(function(){
+    var current = window.location.hash;
+    $('.nav-item .nav-link').each(function(){
+      var link = $(this).attr('href');
+      if (current == link){
+        $(this).addClass('active');
 
-   var current = window.location.hash;
-   $('.nav-item .nav-link').each(function(){
-    var link = $(this).attr('href');
-    if (current == link){
-      $(this).addClass('active');
-
-      $(this).parent().siblings().children().removeClass('active');
-    }
-  }); 
-   var current1 = window.location.hash.split('#');
-   console.log('current1 => ',current1[1]);
-   $('.tab-content .tab-pane').each(function(){
-    var link1 = $(this).attr('id');
-            //alert(current1[1]);
-    if (current1[1] == link1){
-      $(this).addClass('active show');
-      $(this).siblings().removeClass('active show');
-    }
-  });
+        $(this).parent().siblings().children().removeClass('active');
+      }
+    }); 
+    var current1 = window.location.hash.split('#');
+    console.log('current1 => ',current1[1]);
+    $('.tab-content .tab-pane').each(function(){
+      var link1 = $(this).attr('id');
+              //alert(current1[1]);
+      if (current1[1] == link1){
+        $(this).addClass('active show');
+        $(this).siblings().removeClass('active show');
+      }
+    });
 
     $('.desktop-dropdown-menu .dropdown-menu').on('mouseover', function() {
       var parentDivId = $(this).closest(".desktop-dropdown-menu").prop("id");
@@ -390,56 +393,56 @@ class="col-md-12 col-lg-6 col-sm-12 wow pt-3 slideInLeft wow animate__animated a
         }
     });
 
- });
+  // });
 
-//Add dynamic alt tag
-jQuery(document).ready(function ($) {
-    // Target all images within the content
-    $('.blog_inner_detail .wp-block-image img, article .entry-content img').each(function () {
-        var $img = $(this);
+  //Add dynamic alt tag
+  // jQuery(document).ready(function ($) {
+      // Target all images within the content
+      $('.blog_inner_detail .wp-block-image img, article .entry-content img').each(function () {
+          var $img = $(this);
 
-        // Check if the alt attribute is missing or empty
-        if (!$img.attr('alt') || $img.attr('alt') === '') {
-            // Extract the image file name from the src attribute
-            var src = $img.attr('src');
-            var fileName = src.substring(src.lastIndexOf('/') + 1, src.lastIndexOf('.'));
+          // Check if the alt attribute is missing or empty
+          if (!$img.attr('alt') || $img.attr('alt') === '') {
+              // Extract the image file name from the src attribute
+              var src = $img.attr('src');
+              var fileName = src.substring(src.lastIndexOf('/') + 1, src.lastIndexOf('.'));
 
-            // Replace underscores with spaces
-            fileName = fileName.replace(/_/g, ' ');
+              // Replace underscores with spaces
+              fileName = fileName.replace(/_/g, ' ');
 
-            // Capitalize the first letter of each word
-            fileName = fileName.replace(/\b\w/g, function (char) {
-                return char.toUpperCase();
-            });
+              // Capitalize the first letter of each word
+              fileName = fileName.replace(/\b\w/g, function (char) {
+                  return char.toUpperCase();
+              });
 
-            // Set the alt attribute to the formatted file name
-            $img.attr('alt', fileName);
-        }
-    });
+              // Set the alt attribute to the formatted file name
+              $img.attr('alt', fileName);
+          }
+      });
+  // });
+
+  //Blog External Link add targer _blank
+  // $(document).ready(function() {
+      $('.single-blog .blog_inner_detail a').each(function() {
+          var a = new RegExp('/' + window.location.host + '/');
+          if (!a.test(this.href)) {
+              $(this).attr('target', '_blank');
+          }
+      });
+  // });
+
+
+  jQuery(".page-id-5511 div#flush-collapse1").addClass("show");
+  jQuery('.page-id-5511 button[data-bs-target="#flush-collapse1"]').removeClass('collapsed');
+
+  //Hide hubspot field
+  jQuery('.hbspt-form .hs-nerizzler').css('opacity', '0');
+  jQuery('.hbspt-form .hs-nerizzler').css('position', 'absolute !important');
+  jQuery('.hbspt-form .hs-nerizzler').css('left', '-9999px');
+  jQuery('.hbspt-form .hs-nerizzler').css('width', '0px !important');
+  jQuery('.hbspt-form .hs-nerizzler').css('height', '0px !important');
+
 });
-
-//Blog External Link add targer _blank
-$(document).ready(function() {
-    $('.single-blog .blog_inner_detail a').each(function() {
-        var a = new RegExp('/' + window.location.host + '/');
-        if (!a.test(this.href)) {
-            $(this).attr('target', '_blank');
-        }
-    });
-});
-
-
-jQuery(".page-id-5511 div#flush-collapse1").addClass("show");
-jQuery('.page-id-5511 button[data-bs-target="#flush-collapse1"]').removeClass('collapsed');
-
-//Hide hubspot field
-jQuery('.hbspt-form .hs-nerizzler').css('opacity', '0');
-jQuery('.hbspt-form .hs-nerizzler').css('position', 'absolute !important');
-jQuery('.hbspt-form .hs-nerizzler').css('left', '-9999px');
-jQuery('.hbspt-form .hs-nerizzler').css('width', '0px !important');
-jQuery('.hbspt-form .hs-nerizzler').css('height', '0px !important');
-
-
 </script>
 <style type="text/css">
   html {

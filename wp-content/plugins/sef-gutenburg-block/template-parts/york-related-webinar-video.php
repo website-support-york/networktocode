@@ -22,7 +22,7 @@ if( !empty($block['align']) ) {
 
 
 ?>
-<section id="<?php echo esc_attr($id); ?>" class="nautobot-video <?php echo esc_attr($className); ?>">
+<section id="<?php echo esc_attr($id); ?>" class="webinar-related nautobot-video <?php echo esc_attr($className); ?>">
 
 	<!-- Video Case Studies Recommandation -->
 	<div class="container">
@@ -56,11 +56,14 @@ if( !empty($block['align']) ) {
 			?>
 			<div class="col-md-4 col-sm-6">
 				<div class="video-box">
-					<a href="<?php echo get_the_permalink( get_the_ID() ); ?>">
+					<a href="<?php echo get_the_permalink( get_the_ID() ); ?>" target="_blank" rel="noopener">
 						<div class="position-relative">
 							<img class="img-fluid w-100" src="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'large' ); ?>" alt="<?php echo get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ); ?>"/>
 							<div class="video-overlay">
-								<span><i class="bi bi-play-circle-fill"></i></span>
+								<!-- <span><i class="bi bi-play-circle-fill"></i></span> -->
+								<!-- put image icon of play button from assets/images -->
+								 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play-icon.svg" alt="Play Button" class="play-button-icon">
+
 							</div>
 						</div>
 						<h5 class="video-title"><?php echo wp_trim_words( get_the_title(), 10, '...' );?></h5>
@@ -73,9 +76,9 @@ if( !empty($block['align']) ) {
 		    wp_reset_postdata();
 		    ?>
 			
-		    <div class="download-btn text-center">
+		    <!-- <div class="download-btn text-center">
   				<a href="/resources/webinars/" class="btn theme-btn mt-3">Explore all Webinars</a>
-			</div>
+			</div> -->
 		</div>
 	</div>
     

@@ -6383,7 +6383,7 @@ section.contact .title-box.text-start {
   font-weight: 500;
 }
 
-.page-webinars .latest-post-content p {
+/* .page-webinars .latest-post-content p {
   margin-bottom: 0 !important;
 }
 .page-webinars figure.feature-img {
@@ -6395,7 +6395,7 @@ section.contact .title-box.text-start {
   -o-object-fit: unset;
      object-fit: unset;
   height: 140px !important;
-}
+} */
 
 li.current-menu-ancestor > a {
   color: #e07808 !important;

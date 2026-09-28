@@ -25,6 +25,8 @@ add_action( 'block_categories_all', 'sef_plugin_block_categories', 10, 2 );
 
 // End of adding block category listing
 
+
+
 // start of Sef Hero Banner
 
 add_action( 'acf/init', 'sef_hero_banner');
@@ -4285,6 +4287,126 @@ function two_col_image_icon() {
 }
 // End of Image + Icon Content Section
 
+// webinar top banner start 
+
+add_action( 'acf/init', 'webinar_top_banner');
+function webinar_top_banner() {
+
+   // Check function exists.
+  if( function_exists( 'acf_register_block_type' ) ) {
+
+        // register a Case Study Details block.
+    acf_register_block_type( array(
+      'name'              => 'webinartopbanner',
+      'title'             => __('Webinars Top Banner'),
+      'description'       => __('Webinars top banner layout.'),
+            // 'render_callback'   => function() {
+            //     echo '<h3>Our travel block</h3>';
+            // },
+      'render_template'   => plugin_dir_path( __FILE__ ) .'template-parts/webinar-top-banner.php',
+      'category'          => 'sef-blocks',
+      'icon'              => 'admin-tools',
+      'keywords'          => array( 'webinar', 'top', 'banner' ),
+      'supports' => array( 'anchor' => true, 'jsx' => true, ),
+      'enqueue_assets'    => function() {
+        wp_enqueue_style( 'network-to-code-style', get_stylesheet_uri(), array(), _S_VERSION );
+        wp_style_add_data( 'network-to-code-style', 'rtl', 'replace' );
+
+        wp_register_style( 'Google_Font_Roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Zilla+Slab:wght@300;400;500;600;700&display=swap' );
+        wp_enqueue_style('Google_Font_Roboto');
+
+        wp_register_style( 'Owl_Carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css' );
+        wp_enqueue_style('Owl_Carousel');
+
+        wp_register_style( 'Bootstrap_Icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css' );
+        wp_enqueue_style('Bootstrap_Icons');
+
+        wp_register_style( 'Animation_Css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' );
+        wp_enqueue_style('Animation_Css');
+
+        wp_register_style( 'Jquery_Ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css' );
+        wp_enqueue_style('Jquery_Ui');
+
+        wp_register_style( 'Slick_Slider', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' );
+        wp_enqueue_style('Slick_Slider');
+
+        wp_register_style( 'Bootstrap_Css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' );
+        wp_enqueue_style('Bootstrap_Css');
+
+        wp_register_style( 'Ntc_Stylesheet', get_template_directory_uri() . '/assets/scss/style.css' );
+        wp_enqueue_style('Ntc_Stylesheet');
+
+        wp_register_style( 'Cursor_Stylesheet', get_template_directory_uri() . '/assets/css/cursor.css' );
+        wp_enqueue_style('Cursor_Stylesheet');
+
+      }            
+    ) );
+  }
+
+}
+// end of webinar top banner
+
+
+
+// webinar listing
+
+add_action( 'acf/init', 'webinar_listing');
+function webinar_listing() {
+
+   // Check function exists.
+  if( function_exists( 'acf_register_block_type' ) ) {
+
+        // register a Case Study Details block.
+    acf_register_block_type( array(
+      'name'              => 'webinarlisting',
+      'title'             => __('Webinars Listing'),
+      'description'       => __('Webinars Listing layout.'),
+            // 'render_callback'   => function() {
+            //     echo '<h3>Our travel block</h3>';
+            // },
+      'render_template'   => plugin_dir_path( __FILE__ ) .'template-parts/webinar-listing.php',
+      'category'          => 'sef-blocks',
+      'icon'              => 'admin-tools',
+      'keywords'          => array( 'webinar', 'listing' ),
+      'supports' => array( 'anchor' => true, 'jsx' => true, ),
+      'enqueue_assets'    => function() {
+        wp_enqueue_style( 'network-to-code-style', get_stylesheet_uri(), array(), _S_VERSION );
+        wp_style_add_data( 'network-to-code-style', 'rtl', 'replace' );
+
+        wp_register_style( 'Google_Font_Roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Zilla+Slab:wght@300;400;500;600;700&display=swap' );
+        wp_enqueue_style('Google_Font_Roboto');
+
+        wp_register_style( 'Owl_Carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css' );
+        wp_enqueue_style('Owl_Carousel');
+
+        wp_register_style( 'Bootstrap_Icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css' );
+        wp_enqueue_style('Bootstrap_Icons');
+
+        wp_register_style( 'Animation_Css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css' );
+        wp_enqueue_style('Animation_Css');
+
+        wp_register_style( 'Jquery_Ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css' );
+        wp_enqueue_style('Jquery_Ui');
+
+        wp_register_style( 'Slick_Slider', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css' );
+        wp_enqueue_style('Slick_Slider');
+
+        wp_register_style( 'Bootstrap_Css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' );
+        wp_enqueue_style('Bootstrap_Css');
+
+        wp_register_style( 'Ntc_Stylesheet', get_template_directory_uri() . '/assets/scss/style.css' );
+        wp_enqueue_style('Ntc_Stylesheet');
+
+        wp_register_style( 'Cursor_Stylesheet', get_template_directory_uri() . '/assets/css/cursor.css' );
+        wp_enqueue_style('Cursor_Stylesheet');
+
+      }            
+    ) );
+  }
+
+}
+// end of webinar listing
+
 
 // Start of Image + Icon Content Section
 add_action( 'acf/init', 'integration_partners');
@@ -5342,4 +5464,75 @@ function sef_three_icon_box() {
 
 }
 // End of Three Icon Box
-?>
+
+// Start of Sef Webinar Detail
+
+add_action( 'acf/init', 'webinar_detail_layout' );
+function webinar_detail_layout() {
+  if ( function_exists( 'acf_register_block_type' ) ) {
+    acf_register_block_type(
+      array(
+        'name'            => 'webinardetail',
+        'title'           => __( 'Webinar Detail'),
+        'description'     => __( 'Webinar detail block with a sidebar and InnerBlocks content.'),
+        'render_template' => plugin_dir_path( __FILE__ ) . 'template-parts/webinar-detail.php',
+        'category'        => 'sef-blocks',
+        'icon'            => 'welcome-learn-more',
+        'keywords'        => array( 'Webinar', 'Detail' ),
+        'show_in_rest'    => true,
+        'supports'        => array(
+          'anchor' => true,
+          'jsx'    => true,
+        ),
+      )
+    );
+  }
+}
+
+// End of Sef Webinar Detail
+
+//webinar newsletter section
+
+add_action( 'acf/init', 'webinar_newsletter' );
+function webinar_newsletter() {
+  if ( function_exists( 'acf_register_block_type' ) ) {
+    acf_register_block_type(
+      array(
+        'name'            => 'webinar_newsletter',
+        'title'           => __( 'Webinar Newsletter'),
+        'description'     => __( 'Webinar Newsletter.'),
+        'render_template' => plugin_dir_path( __FILE__ ) . 'template-parts/webinar-newsletter.php',
+        'category'        => 'sef-blocks',
+        'icon'            => 'welcome-learn-more',
+        'keywords'        => array( 'Webinar', 'Newsletter' ),
+        'supports'        => array(
+          'anchor' => true,
+          'jsx'    => true,
+        ),
+      )
+    );
+  }
+}
+
+// webinar quote
+
+add_action( 'acf/init', 'webinar_quote' );
+function webinar_quote() {
+  if ( function_exists( 'acf_register_block_type' ) ) {
+    acf_register_block_type(
+      array(
+        'name'            => 'webinar_quote',
+        'title'           => __( 'Webinar Quote'),
+        'description'     => __( 'Webinar Quote.'),
+        'render_template' => plugin_dir_path( __FILE__ ) . 'template-parts/webinar-quote.php',
+        'category'        => 'sef-blocks',
+        'icon'            => 'welcome-learn-more',
+        'keywords'        => array( 'Webinar', 'Quote' ),
+        'supports'        => array(
+          'anchor' => true,
+          'jsx'    => true,
+        ),
+      )
+    );
+  }
+}

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
   // Replace the version number of the theme on each release.
-  define( '_S_VERSION', '1.0.03' );
+  define( '_S_VERSION', '1.0.500' );
 }
 
 /**
@@ -135,16 +135,14 @@ function network_to_code_widgets_init() {
 add_action( 'widgets_init', 'network_to_code_widgets_init' );
 
 /**
- * Enqueue scripts and styles for the theme.
+ * Enqueue scripts and styles.
  */
 function network_to_code_scripts() {
 
   wp_register_style( 'font-awesome-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
   wp_enqueue_style('font-awesome-min-css');
 
-//   wp_enqueue_style( 'network-to-code-style', get_stylesheet_uri(), array(), _S_VERSION );
-  wp_enqueue_style( 'network-to-code-style', get_stylesheet_uri(), array(), time() );
-
+  wp_enqueue_style( 'network-to-code-style', get_stylesheet_uri(), array(), '1.1' );
   wp_style_add_data( 'network-to-code-style', 'rtl', 'replace' );
 
   wp_register_style( 'Google-Font-Roboto', 'https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap' );
@@ -179,22 +177,22 @@ function network_to_code_scripts() {
   wp_register_style( 'easy-responsive-tabs', get_template_directory_uri() . '/assets/css/easy-responsive-tabs.css' );
   wp_enqueue_style('easy-responsive-tabs');
 
-  wp_register_style( 'Ntc-Stylesheet', get_template_directory_uri() . '/assets/scss/style.css?'.time() );
+  wp_register_style( 'Ntc-Stylesheet', get_template_directory_uri() . '/assets/scss/style.css' );
   wp_enqueue_style('Ntc-Stylesheet');
-
-  wp_register_style( 'Ntc-Stylesheet-2', get_template_directory_uri() . '/assets/css/style-2.css?12' );
+  
+  wp_register_style( 'Ntc-Stylesheet-2', get_template_directory_uri() . '/assets/css/style-2.css?time=' . time() );
   wp_enqueue_style('Ntc-Stylesheet-2');
 
   wp_register_style( 'Fancy-Box', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css' );
   wp_enqueue_style('Fancy-Box');
     
-  wp_enqueue_script( 'network-to-code-jquery-min', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js', array(), _S_VERSION, true );
+//   wp_enqueue_script( 'network-to-code-jquery-min', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js', array(), _S_VERSION, true );
 
-  wp_enqueue_script( 'network-to-code-jquery-cookies-min', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array(), _S_VERSION, true );
+  wp_enqueue_script( 'network-to-code-jquery-cookies-min', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js', array('jquery'), _S_VERSION, true );
 
   wp_enqueue_script( 'network-to-code-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array(), _S_VERSION, true );
 
-  wp_enqueue_script( 'network-to-code-owl', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', array(), _S_VERSION, true );
+  wp_enqueue_script( 'network-to-code-owl', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', array('jquery'), _S_VERSION, true );
 
   wp_enqueue_script( 'network-to-code-particles', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', array(), _S_VERSION, true );
 
@@ -204,18 +202,31 @@ function network_to_code_scripts() {
 
   wp_enqueue_script( 'network-to-code-wow', get_template_directory_uri() . '/assets/js/wow.min.js', array(), _S_VERSION, true );
 
-  wp_enqueue_script( 'network-to-code-slider', get_template_directory_uri() . '/assets/js/slider.js', array(), _S_VERSION, true );
+  wp_enqueue_script( 'network-to-code-slider', get_template_directory_uri() . '/assets/js/slider.js', array(), '1.2', true );
 
   wp_enqueue_script( 'easy-responsive-tabs', get_template_directory_uri() . '/assets/js/easy-responsive-tabs.js', array(), _S_VERSION, true );
 
   //Validation JS 
-  wp_enqueue_script( 'jquery.validate', 'https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js?ver=1.0.0', array(), _S_VERSION, true );
-  wp_enqueue_script( 'additional-methods.min', 'https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js?ver=1.0.0', array(), _S_VERSION, true );
+  // wp_enqueue_script( 'jquery.validate', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js', array(), _S_VERSION, true );
+  // wp_enqueue_script( 'additional-methods.min', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js', array(), _S_VERSION, true );
 
 
-  wp_enqueue_script( 'network-to-code-main', get_template_directory_uri() . '/assets/js/main.js', array(), _S_VERSION, true );
+  wp_enqueue_script( 'network-to-code-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.2', true );
+  wp_localize_script('network-to-code-main', 'ajaxurl', array('ajaxurl' => admin_url('admin-ajax.php')));
+  wp_enqueue_script( 'network-to-code-insights-pagination', get_template_directory_uri() . '/assets/js/insights-pagination.js', array( 'jquery' ), _S_VERSION, true );
+  $webinar_category = get_category_by_slug( 'webinars' );
+  wp_localize_script(
+    'network-to-code-insights-pagination',
+    'insightsPaginationConfig',
+    array(
+      'root' => esc_url_raw( rest_url() ),
+      'nonce' => wp_create_nonce( 'wp_rest' ),
+      'perPage' => 12,
+      'webinarCategoryId' => $webinar_category ? (int) $webinar_category->term_id : 0,
+    )
+  );
 
-  wp_enqueue_script( 'fancy-box-jquery', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', array(), _S_VERSION, true );
+  wp_enqueue_script( 'fancy-box-jquery', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js', array('jquery'), _S_VERSION, true );
 
 
 
@@ -228,9 +239,6 @@ add_action( 'wp_enqueue_scripts', 'network_to_code_scripts' );
 
 /*Custom Post type start*/
 
-/**
- * Registers the custom post type for case studies.
- */
 function network_to_code_post_type_case_study() {
 
 $supports = array(
@@ -298,13 +306,6 @@ function network_to_code_taxonomy_case_study() {
 }
 add_action( 'init', 'network_to_code_taxonomy_case_study', 0 );
 
-/*
-Custom post type creation : Course
-*/
-
-/**
- * Registers the custom post type for courses.
- */
 function network_to_code_post_type_course() {
 
   $supports = array(
@@ -354,7 +355,9 @@ function network_to_code_post_type_course() {
   /*Custom Course Post type end*/
 
   /**
- * Registers the taxonomy used for course categories.
+ * Register a 'Course Category' taxonomy for post type 'Course'.
+ *
+ * Register custom capabilities for taxonomies.
  *
  * @see register_post_type for registering post types.
  */
@@ -372,9 +375,6 @@ add_action( 'init', 'network_to_code_taxonomy_course', 0 );
 
   /*Custom Team Post type start*/
 
-/**
- * Registers the custom post type for team members.
- */
 function network_to_code_post_type_team() {
 
   $supports = array(
@@ -428,7 +428,9 @@ function network_to_code_post_type_team() {
   /*Custom Team Post type end*/
 
 /**
- * Registers the taxonomy used for team categories.
+ * Register a 'Team Category' taxonomy for post type 'Team'.
+ *
+ * Register custom capabilities for taxonomies.
  *
  * @see register_post_type for registering post types.
  */
@@ -445,9 +447,6 @@ add_action( 'init', 'network_to_code_taxonomy_team', 0 );
 
   /*Custom Testimonial Post type start*/
 
-/**
- * Registers the custom post type for testimonials.
- */
 function network_to_code_post_type_testimonial() {
 
   $supports = array(
@@ -517,9 +516,6 @@ add_action( 'init', 'network_to_code_taxonomy_testimonial', 0 );
 
   /*Custom Current Openings Post type start*/
 
-/**
- * Registers the custom post type for current openings.
- */
 function network_to_code_post_type_current_openings() {
 
   $supports = array(
@@ -700,7 +696,7 @@ add_action( 'init', 'network_to_code_taxonomy_current_openings', 0 );
     'show_in_rest' => true,
     'query_var' => true,
     'rewrite' => array('slug' => 'books'),
-    'has_archive' => true,
+    'has_archive' => false,
     'hierarchical' => true,
     );
     register_post_type('eBooks', $args);
@@ -979,7 +975,6 @@ add_action( 'init', 'network_to_code_taxonomy_news', 0 );
       'labels' => $labels,
       'menu_icon' => 'dashicons-media-document',
       'public' => true,
-      'export' => true,
       'publicly_queryable' => true,
       'show_ui'            => true,
       'show_in_menu'       => true,
@@ -988,8 +983,6 @@ add_action( 'init', 'network_to_code_taxonomy_news', 0 );
       'rewrite' => array('slug' => 'blog'),
       'has_archive' => false,
       'hierarchical' => false,
-      'public' => true,
-      'can_export' => true,
     );
 
     register_post_type('blog', $args);
@@ -1092,11 +1085,6 @@ add_filter( 'body_class', 'add_slug_body_class' );
 
 //Breadcrumb start
 
-/**
- * Builds a breadcrumb trail for the current post, archive, or category page.
- *
- * @return string Breadcrumb markup.
- */
 function get_hansel_and_gretel_breadcrumbs()
 {
     // Set variables for later use
@@ -1107,7 +1095,7 @@ function get_hansel_and_gretel_breadcrumbs()
     $link_after       = '</span>';
     $link_attr        = ' rel="v:rel" property="v:title"';
     $link             = $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;
-    $delimiter        = '<img src="https://net2codestg.wpengine.com/wp-content/uploads/2023/01/dual-arrow.svg" alt="Arrow" >  ';              // Delimiter between crumbs
+    $delimiter        = '<img src="https://networktocode.com/wp-content/uploads/2023/01/dual-arrow.svg" alt="Arrow" >  ';              // Delimiter between crumbs
     $before           = '<span class="current">'; // Tag before the current crumb
     $after            = '</span>';                // Tag after the current crumb
     $page_addon       = '';                       // Adds the page number if the query is paged
@@ -1213,6 +1201,25 @@ function get_hansel_and_gretel_breadcrumbs()
           {
             $breadcrumb_trail = $post_link;
           }
+
+        // Custom breadcrumb for webinars posts: Home >> Resources >> Webinars >> Post Title
+        if ( 'post' === $post_type ) {
+            $post_categories = get_the_category( $post_id );
+            $is_webinar = false;
+            
+            foreach ( $post_categories as $cat ) {
+                if ( 'webinars' === $cat->slug ) {
+                    $is_webinar = true;
+                    break;
+                }
+            }
+            
+            if ( $is_webinar ) {
+                $resources_link = sprintf( $link, esc_url( home_url( '/resources' ) ), __( 'Resources', 'network-to-code' ) );
+                $webinars_link = sprintf( $link, esc_url( home_url( '/resources/webinars' ) ), __( 'Webinars', 'network-to-code' ) );
+                $breadcrumb_trail = $resources_link . $delimiter . $webinars_link . $delimiter . $post_link;
+            }
+        }
     }
 
     // Handle archives which includes category-, tag-, taxonomy-, date-, custom post type archives and author archives
@@ -1229,29 +1236,37 @@ function get_hansel_and_gretel_breadcrumbs()
             $term_name          = $term_object->name;
             $term_parent        = $term_object->parent;
             $taxonomy_object    = get_taxonomy( $taxonomy );
-            $current_term_link  = $before . $taxonomy_object->labels->singular_name . ': ' . $term_name . $after;
-            $parent_term_string = '';
+            
+            // Special handling for webinars category
+            if ( 'category' === $taxonomy && 'webinars' === $term_object->slug ) {
+                $resources_link = sprintf( $link, esc_url( home_url( '/resources' ) ), __( 'Resources', 'network-to-code' ) );
+                $webinars_link = $before . __( 'Webinars', 'network-to-code' ) . $after;
+                $breadcrumb_trail = $resources_link . $delimiter . $webinars_link;
+            } else {
+                $current_term_link  = $before . $taxonomy_object->labels->singular_name . ': ' . $term_name . $after;
+                $parent_term_string = '';
 
-            if ( 0 !== $term_parent )
-            {
-                // Get all the current term ancestors
-                $parent_term_links = [];
-                while ( $term_parent ) {
-                    $term = get_term( $term_parent, $taxonomy );
+                if ( 0 !== $term_parent )
+                {
+                    // Get all the current term ancestors
+                    $parent_term_links = [];
+                    while ( $term_parent ) {
+                        $term = get_term( $term_parent, $taxonomy );
 
-                    $parent_term_links[] = sprintf( $link, esc_url( get_term_link( $term ) ), $term->name );
+                        $parent_term_links[] = sprintf( $link, esc_url( get_term_link( $term ) ), $term->name );
 
-                    $term_parent = $term->parent;
+                        $term_parent = $term->parent;
+                    }
+
+                    $parent_term_links  = array_reverse( $parent_term_links );
+                    $parent_term_string = implode( $delimiter, $parent_term_links );
                 }
 
-                $parent_term_links  = array_reverse( $parent_term_links );
-                $parent_term_string = implode( $delimiter, $parent_term_links );
-            }
-
-            if ( $parent_term_string ) {
-                $breadcrumb_trail = $parent_term_string . $delimiter . $current_term_link;
-            } else {
-                $breadcrumb_trail = $current_term_link;
+                if ( $parent_term_string ) {
+                    $breadcrumb_trail = $parent_term_string . $delimiter . $current_term_link;
+                } else {
+                    $breadcrumb_trail = $current_term_link;
+                }
             }
 
         } elseif ( is_author() ) {
@@ -1335,6 +1350,12 @@ function get_hansel_and_gretel_breadcrumbs()
       $breadcrumb_output_link .= '<a href="' . $landing_link3 . '" rel="v:url" property="v:title">' . $landing_text3 . '</a>';
       $breadcrumb_output_link .= $delimiter;
       $breadcrumb_output_link .= $breadcrumb_trail;
+    } else if( is_singular() && 'post' === get_post_type() ){
+      // For all posts (including webinars), add home link and breadcrumb trail
+      // For webinars, the breadcrumb_trail already includes "Resources >> Webinars >> Title"
+      $breadcrumb_output_link .= '<a href="' . $home_link . '" rel="v:url" property="v:title">' . $home_text . '</a>';
+      $breadcrumb_output_link .= $delimiter;
+      $breadcrumb_output_link .= $breadcrumb_trail;
     }
     
     else {
@@ -1364,9 +1385,6 @@ function get_hansel_and_gretel_breadcrumbs()
 
 // Empty page redirection
 
-/**
- * Redirects empty content pages to the homepage when no content is present.
- */
 function ntc_empty_redirection(){
 
   if ( get_the_content() ) {
@@ -1381,9 +1399,6 @@ add_action('template_redirect','ntc_empty_redirection');
 
 add_action( 'wp_ajax_demo-pagination-load-posts-upcome', 'cvf_demo_pagination_load_posts_upcome' );
 add_action( 'wp_ajax_nopriv_demo-pagination-load-posts-upcome', 'cvf_demo_pagination_load_posts_upcome' );
-/**
- * Loads the next set of upcoming posts for AJAX pagination.
- */
 function cvf_demo_pagination_load_posts_upcome() { 
 
     global $wpdb;
@@ -1531,9 +1546,6 @@ function cvf_demo_pagination_load_posts_upcome() {
 
 add_action( 'wp_ajax_demo-pagination-load-posts', 'cvf_demo_pagination_load_posts' );
 add_action( 'wp_ajax_nopriv_demo-pagination-load-posts', 'cvf_demo_pagination_load_posts' );
-/**
- * Loads the next set of blog posts for AJAX pagination.
- */
 function cvf_demo_pagination_load_posts() { 
 
     global $wpdb;
@@ -1681,14 +1693,6 @@ function cvf_demo_pagination_load_posts() {
 
 
 
-/**
- * Adds a custom class to navigation menu list items when requested.
- *
- * @param array  $classes Existing menu item classes.
- * @param object $item    Current menu item.
- * @param object $args    Menu arguments.
- * @return array Updated classes.
- */
 function add_additional_class_on_li($classes, $item, $args) {
     if(isset($args->add_li_class)) {
         $classes[] = $args->add_li_class;
@@ -1698,14 +1702,6 @@ function add_additional_class_on_li($classes, $item, $args) {
 add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
 
 
-/**
- * Adds a custom class to navigation menu links when requested.
- *
- * @param array  $classes Existing link classes.
- * @param object $item    Current menu item.
- * @param object $args    Menu arguments.
- * @return array Updated classes.
- */
 function add_additional_class_on_a($classes, $item, $args)
 {
     if (isset($args->add_a_class)) {
@@ -1719,13 +1715,6 @@ add_filter('nav_menu_link_attributes', 'add_additional_class_on_a', 1, 3);
 
 add_filter('nav_menu_css_class' , 'special_nav_class' , 10 , 2);
 
-/**
- * Marks the current menu item with an additional class.
- *
- * @param array  $classes Existing classes.
- * @param object $item    Current menu item.
- * @return array Updated classes.
- */
 function special_nav_class ($classes, $item) {
   if (in_array('current-menu-item', $classes) ){
     $classes[] = 'active ';
@@ -1735,14 +1724,6 @@ function special_nav_class ($classes, $item) {
 
   
 
-/**
- * Adds a title attribute to navigation menu links.
- *
- * @param array  $atts Link attributes.
- * @param object $item Current menu item.
- * @param object $args Menu arguments.
- * @return array Updated link attributes.
- */
 function add_title_to_nav_menu_links($atts, $item, $args) {
   $atts['data-title'] = $item->title;
   $atts['class'] = 'nav-link';
@@ -1753,31 +1734,19 @@ function add_title_to_nav_menu_links($atts, $item, $args) {
 add_filter('nav_menu_link_attributes', 'add_title_to_nav_menu_links', 10, 3);
 
 
-/**
- * Removes the HSTC tracking parameter from permalinks.
- *
- * @param string $url Original URL.
- * @return string Clean URL.
- */
 function remove_hstc_param($url) {
     $url = remove_query_arg('__hstc', $url);
     return $url;
 }
 add_filter('the_permalink', 'remove_hstc_param');
 
-/**
- * Enqueues jQuery for frontend use.
- */
-function enqueue_jquery() {
-    wp_enqueue_script('jquery');
-}
-add_action('wp_enqueue_scripts', 'enqueue_jquery');
+// function enqueue_jquery() {
+//     wp_enqueue_script('jquery');
+// }
+// add_action('wp_enqueue_scripts', 'enqueue_jquery');
 
 // ebook listing start
 
-/**
- * Handles the AJAX request for loading ebooks by category and pagination.
- */
 function fetch_ebooks_ajax_handler() {
     // Prepare the response array
     $response = array(
@@ -1892,9 +1861,6 @@ add_action('wp_ajax_nopriv_fetch_ebooks', 'fetch_ebooks_ajax_handler');
 // ebooks listing ends
 
 
-/**
- * Handles the AJAX request for filtering apps by category and author.
- */
 function fetch_filtered_apps() {
     // Prepare response array
     $response = array(
@@ -1984,12 +1950,6 @@ add_action('wp_ajax_nopriv_fetch_filtered_apps', 'fetch_filtered_apps');
 
 
 //Blog Layout 
-/**
- * Renders a list of blog posts based on the provided shortcode attributes.
- *
- * @param array $atts Shortcode attributes.
- * @return string HTML output.
- */
 function get_blogs_by_id( $atts ) {
   $atts = shortcode_atts( array(
         'post_id' => null,
@@ -2022,9 +1982,6 @@ add_shortcode( 'get_blogs_by_id', 'get_blogs_by_id' );
 add_action('wp_ajax_filter_apps', 'filter_apps');
 add_action('wp_ajax_nopriv_filter_apps', 'filter_apps');
 
-/**
- * Filters apps based on selected tags, authors, categories, and years.
- */
 function filter_apps() {
   // Prepare the response array
     $response = array(
@@ -2053,40 +2010,74 @@ function filter_apps() {
       's' => $search,
   );
 
-//   new query to resolve authors filter issue
-$tax_query = array(
-    'relation' => 'AND',
-);
+  //   new query to resolve authors filter issue
+  $tax_query = array(
+      'relation' => 'AND',
+  );
 
-if (!empty($selected_tag)) {
-    $tax_query[] = array(
-        'taxonomy' => 'blog-category',
-        'field'    => 'slug',
-        'terms'    => $selected_tag,
+  if (!empty($selected_tag)) {
+      $tax_query[] = array(
+          'taxonomy' => 'blog-category',
+          'field'    => 'slug',
+          'terms'    => $selected_tag,
+      );
+  }
+
+  if (!empty($authors)) {
+      $tax_query[] = array(
+          'taxonomy' => 'blog-author',
+          'field'    => 'slug',
+          'terms'    => $authors,
+          'operator' => 'IN',
+      );
+  }
+
+  if (!empty($categories)) {
+      $tax_query[] = array(
+          'taxonomy' => 'blog-category',
+          'field'    => 'slug',
+          'terms'    => $categories,
+          'operator' => 'IN',
+      );
+  }
+
+  if (count($tax_query) > 1) {
+      $args['tax_query'] = $tax_query;
+  }
+
+  // If a tag is selected, filter the posts by that category
+  /*if (!empty($selected_tag)) {
+    $args['tax_query'] = array(
+        array(
+            'taxonomy' => 'blog-category', // Adjust the taxonomy if needed
+            'field'    => 'slug',
+            'terms'    => $selected_tag, // Filter by the selected tag slug
+        ),
     );
-}
+  }
 
-if (!empty($authors)) {
-    $tax_query[] = array(
-        'taxonomy' => 'blog-author',
-        'field'    => 'slug',
-        'terms'    => $authors,
-        'operator' => 'IN',
-    );
-}
-
-if (!empty($categories)) {
-    $tax_query[] = array(
-        'taxonomy' => 'blog-category',
-        'field'    => 'slug',
-        'terms'    => $categories,
-        'operator' => 'IN',
-    );
-}
-
-if (count($tax_query) > 1) {
-    $args['tax_query'] = $tax_query;
-}
+  // Filter by authors if any selected
+  if (!empty($authors)) {
+      //$args['author__in'] = $authors;
+      $args['tax_query'] = array(
+          array(
+              'taxonomy' => 'blog-author', // Adjust the taxonomy if needed
+              'field'    => 'slug',
+              'terms'    => $authors, // Filter by the selected tag slug
+          ),
+      );
+  } 
+  // Filter by categories if any selected
+  if (!empty($categories)) {
+      $args['tax_query'] = array(
+          array(
+              'taxonomy' => 'blog-category',
+              'field' => 'slug',
+              'terms' => $categories,
+              'operator' => 'IN',
+          ),
+      );
+  }*/
 
   // Filter by years and months
   if (!empty($years)) {
@@ -2117,7 +2108,32 @@ if (count($tax_query) > 1) {
       while ($query->have_posts()) {
           $query->the_post();
           echo do_shortcode('[get_blogs_by_id post_id="'.get_the_ID().'"]');
-        
+          /*?>
+          <div class="col-md-4 mb-3">
+              <div class="app-card bg_secondary">
+                  <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" class="app-img" />
+                  <h5 class="name"><?php the_title(); ?></h5>
+                  <p><?php echo wp_trim_words(get_the_excerpt(), 32, '...'); ?></p>
+                  <div class="blog-meta">
+                      <h6 class="date"><?php echo get_the_date('F j, Y'); ?></h6>
+                      <?php
+                        $blog_author = get_the_terms(get_the_ID(), 'blog-author');
+                        //$authors = get_multiple_authors();
+                        if (!empty($blog_author)) {
+                            $author_names = array(); // Create an empty array to store author names
+                            foreach ($blog_author as $author) {
+                                $author_names[] = esc_html($author->name); // Add each author's name to the array
+                            }
+                            // Join the author names with a comma and space, and output the result
+                            echo '<h6 class="author">' . implode(', ', $author_names) . '</h6>';
+                        }
+                      ?>
+                      <!-- <h6 class="author"><?php echo get_the_author(); ?></h6> -->
+                      <a class="btn btn-learn" href="<?php the_permalink(); ?>">Learn more <i class="bi bi-arrow-right"></i></a>
+                  </div>
+              </div>
+          </div>
+          <?php*/
       }
 
       $response['html'] = ob_get_clean();
@@ -2159,12 +2175,9 @@ if (count($tax_query) > 1) {
   wp_die();
 }
 
-/**
- * Enqueues the custom JavaScript used for filtering and UI interactions.
- */
 function enqueue_custom_scripts() {
   wp_enqueue_script('jquery');
-  wp_enqueue_script('custom-ajax-script', get_template_directory_uri() . '/assets/js/custom-ajax.js?v6', array('jquery'), null, true);
+  wp_enqueue_script('custom-ajax-script', get_template_directory_uri() . '/assets/js/custom-ajax.js?v2', array('jquery'), null, true);
 
   // Localize script to pass admin-ajax URL
   wp_localize_script('custom-ajax-script', 'ajaxurl', array('ajaxurl' => admin_url('admin-ajax.php')));
@@ -2173,9 +2186,6 @@ add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
 
 //Blog Page -- Search fucnrtion to search terms from DB
-/**
- * Handles the blog search and filter request for the frontend search box.
- */
 function blog_filter_search_box() {
   global $wpdb;
 
@@ -2279,13 +2289,6 @@ add_action('wp_ajax_blog_filter_search_box', 'blog_filter_search_box');
 add_action('wp_ajax_nopriv_blog_filter_search_box', 'blog_filter_search_box');
 
 //For mobile menu >> Replacing # to javascriot:void
-/**
- * Replaces hash links in a specific menu with a JavaScript void link.
- *
- * @param string $items Menu HTML output.
- * @param object $args  Menu arguments.
- * @return string Modified menu HTML.
- */
 function replace_menu_hash_with_void_for_specific_menu($items, $args) {
         // Replace all occurrences of `href="#"` with `href="javascript:void(0)"`
     $items = str_replace('href="#"', 'href="javascript:void(0)"', $items);
@@ -2299,23 +2302,15 @@ add_filter('wp_nav_menu_items', 'replace_menu_hash_with_void_for_specific_menu',
 // add_action('wp_head', 'preload_lcp_image');
 
 
-/**
- * Returns the current year for shortcode output.
- *
- * @return string Current year.
- */
+
 function display_current_year() {
   return date('Y');
 }
 add_shortcode('current_year', 'display_current_year');
 
+
+
 //Add class to body for pillar pages
-/**
- * Adds a custom body class for pillar pages when configured.
- *
- * @param array $classes Existing body classes.
- * @return array Updated body classes.
- */
 function add_pillar_class($classes) {
   global $post;
   $custom_class = get_field('add_body_class_', $post->ID);
@@ -2326,158 +2321,10 @@ function add_pillar_class($classes) {
 }
 add_filter('body_class', 'add_pillar_class');
 
-
-
-// adding custom slug in webinars category
-add_filter('post_type_link', 'filter_webinars_post_link', 10, 2);
-/**
- * Rewrites webinar post links to the custom resources URL structure.
- *
- * @param string $permalink Original permalink.
- * @param object $post      Current post object.
- * @return string Updated permalink.
- */
-function filter_webinars_post_link($permalink, $post) {
-    if ($post->post_type !== 'post') {
-        return $permalink;
-    }
-
-    $categories = get_the_category($post->ID);
-
-    if ($categories) {
-        foreach ($categories as $category) {
-            if ($category->slug === 'webinars') {
-                return home_url('/resources/webinars/' . $post->post_name . '/');
-            }
-        }
-    }
-
-    return $permalink;
-}
-
-
-add_action('init', 'add_webinars_custom_rewrite_rule');
-/**
- * Registers a rewrite rule for webinar resource URLs.
- */
-function add_webinars_custom_rewrite_rule() {
-    add_rewrite_rule(
-        '^resources/webinars/([^/]+)/?$',
-        'index.php?post_type=post&name=$matches[1]',
-        'top'
-    );
-}
-
-// Yost SEO sitemap add resources in resource category post url
-add_filter('wpseo_xml_sitemap_post_url', 'custom_webinars_sitemap_url', 10, 2);
-
-/**
- * Rewrites the XML sitemap URL for webinar posts.
- *
- * @param string $url     Original sitemap URL.
- * @param object $post    Current post object.
- * @return string Updated sitemap URL.
- */
-function custom_webinars_sitemap_url($url, $post) {
-    if ($post->post_type === 'post') {
-        
-        $categories = get_the_category($post->ID);
-
-        if ($categories) {
-            foreach ($categories as $category) {
-                if ($category->slug === 'webinars') {
-                    return home_url('/resources/webinars/' . $post->post_name . '/');
-                }
-            }
-        }
-    }
-
-    return $url;
-}
-
-
-
-add_action('template_redirect', 'redirect_old_webinar_urls');
-/**
- * Redirects old webinar URLs to the new resources structure.
- */
-function redirect_old_webinar_urls() {
-    if (!is_single() || is_admin()) {
-        return;
-    }
-
-    global $post;
-    if ($post && $post->post_type === 'post') {
-        $categories = get_the_category($post->ID);
-        if ($categories) {
-            foreach ($categories as $category) {
-                if ($category->slug === 'webinars') {
-                    $new_url = home_url('/resources/webinars/' . $post->post_name . '/');
-                    if (!preg_match('~/resources/webinars/~', $_SERVER['REQUEST_URI'])) {
-                        wp_redirect($new_url, 301);
-                        exit;
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-
-add_action('template_redirect', 'redirect_podcast');
-/**
- * Redirects podcast posts to the custom podcast URL structure.
- */
-function redirect_podcast() {
-    if (is_admin() || !is_single()) {
-        return;
-    }
-
-    global $post;
-
-    if ($post && $post->post_type === 'post') {
-        $categories = get_the_category($post->ID);
-        if ($categories) {
-            foreach ($categories as $category) {
-                if ($category->slug === 'podcast') {
-                    $new_url = home_url(user_trailingslashit('community/podcasts/' . $post->post_name));
-                    
-                    if (trailingslashit($_SERVER['REQUEST_URI']) !== trailingslashit(parse_url($new_url, PHP_URL_PATH))) {
-                        wp_redirect($new_url, 301);
-                        exit;
-                    }
-                }
-            }
-        }
-    }
-}
-
-add_action('init', function() {
-    add_rewrite_rule(
-        '^community/podcasts/([^/]+)/?$',
-        'index.php?name=$matches[1]',
-        'top'
-    );
-});
-
-
-// Use excerpt as meta description if Yoast description is empty on blog single pages
-add_filter( 'wpseo_metadesc', function( $desc ) {
-    if ( is_singular('blog') ) {
-        if ( empty( $desc ) ) {
-            return get_the_excerpt(); // fallback to excerpt
-        }
-    }
-    return $desc; // default Yoast behavior for all other cases
-});
-
+add_filter( 'gform_recaptcha_disable_script', '__return_true' );
 
 
 add_action( 'admin_footer', 'ntc_policy_warning_popup_admin' );
-/**
- * Displays a policy warning popup in the admin area for restricted pages.
- */
 function ntc_policy_warning_popup_admin() {
     if ( ! is_admin() ) {
         return;
@@ -2603,56 +2450,205 @@ function ntc_policy_warning_popup_admin() {
 
 
 
+add_filter( 'wpseo_robots', function( $robots ) {
 
-// get template name in wp
+    if (
+        is_page('acceptable-use-policy') ||
+        //is_page('software-lifecycle-policy') ||
+        is_page('security-policy') ||
+        is_page('legal')
+    ) {
+        $robots = 'noindex,nofollow';
+    }
+
+    return $robots;
+
+});
+
+// Remove fetchpriority from specific images
+add_filter('wp_img_tag_add_loading_optimization_attrs', function($optimization_attrs, $tag_name, $attr) {
+    // Check if image is below fold based on class or context
+    if (isset($attr['class']) && strpos($attr['class'], 'below-fold') !== false) {
+        unset($optimization_attrs['fetchpriority']);
+    }
+    return $optimization_attrs;
+}, 10, 3);
+
+
 /**
- * Returns a human-readable template name for an Elementor-based page.
- *
- * @param int $post_id Post ID to inspect.
- * @return string Template label.
+ * Exclude all posts under the "event" category from Yoast SEO XML sitemap
  */
-function get_elementor_template_name( $post_id ) {
-    // Get Elementor’s page settings (stored as serialized array)
-    $settings = get_post_meta( $post_id, '_elementor_page_settings', true );
+/*add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function( $excluded_ids ) {
+    
+    $excluded_categories = [ 'event', 'sub-processors', 'news', 'uncategorized', 'blog', 'podcast'];
+    // Query all posts in 'event' category
+    $event_posts = get_posts( [
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [
+            [
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => $excluded_categories,
+            ],
+        ],
+        'no_found_rows'  => true,
+        'suppress_filters' => true,
+    ] );
 
-    // Check Elementor template setting
-    if ( ! empty( $settings['template'] ) ) {
-        switch ( $settings['template'] ) {
-            case 'elementor_canvas':
-                return 'Elementor Canvas';
-            case 'elementor_full_width':
-                return 'Elementor Full Width';
-            case 'elementor_header_footer':
-                return 'Elementor Header Footer';
-            default:
-                return ucfirst( str_replace( '_', ' ', $settings['template'] ) );
+    if ( ! empty( $event_posts ) ) {
+        $excluded_ids = array_merge( $excluded_ids, $event_posts );
+    }
+
+    return $excluded_ids;
+} );*/
+
+/**
+ * Exclude posts from Yoast sitemap if:
+ * - Category is event, sub-processors, or news
+ * - OR category is webinars AND template is NOT default
+ */
+add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function( $excluded_ids ) {
+
+    // Categories to always exclude
+    $excluded_categories = [ 'event', 'sub-processors', 'news', 'uncategorized', 'blog', 'podcast'];
+
+    // --- 1️⃣ Exclude always-ignored categories ---
+    $posts_to_exclude = get_posts( [
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [
+            [
+                'taxonomy' => 'category',
+                'field'    => 'slug',
+                'terms'    => $excluded_categories,
+                'operator' => 'IN',
+            ],
+        ],
+        'no_found_rows'     => true,
+        'suppress_filters'  => true,
+    ] );
+
+    // --- 2️⃣ Exclude "webinars" category posts where template IS NOT default ---
+    $webinar_posts = get_posts( [
+        'post_type'      => 'post',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'tax_query'      => [
+            [ 'taxonomy' => 'category', 'field'    => 'slug', 'terms'    => 'webinars', ],
+        ],
+        /*'meta_query' => [
+            [
+                'key'     => '_wp_page_template',
+                'value'   => 'elementor_header_footer', // empty value means "Default Template"
+                'compare' => '!=', // exclude only if NOT default
+            ],
+        ],*/
+        'meta_query' => [
+            [
+                'key'     => '_wp_page_template',
+                'compare' => 'NOT EXISTS', // means template meta key exists (custom template used)
+            ],
+        ],
+        'no_found_rows'     => true,
+        'suppress_filters'  => true,
+    ] );
+
+    // Merge all excluded IDs
+    $all_excluded = array_merge( $posts_to_exclude, $webinar_posts );
+
+    if ( ! empty( $all_excluded ) ) {
+        $excluded_ids = array_merge( $excluded_ids, $all_excluded );
+    }
+
+    return $excluded_ids;
+} );
+
+
+/*
+ * WEBINAR - Resource Redirection Code Start
+ * callbacks covered - filter_webinars_post_link | add_webinars_custom_rewrite_rule | redirect_old_webinar_urls
+ */
+// adding custom slug in webinars category
+add_filter('post_type_link', 'filter_webinars_post_link', 10, 2);
+function filter_webinars_post_link($permalink, $post) {
+    if ($post->post_type !== 'post') {
+        return $permalink;
+    }
+
+    $categories = get_the_category($post->ID);
+
+    if ($categories) {
+        foreach ($categories as $category) {
+            if ($category->slug === 'webinars') {
+                return home_url('/resources/webinars/' . $post->post_name . '/');
+            }
         }
     }
 
-    // Fallback to normal WordPress page template
-    $template_slug = get_page_template_slug( $post_id );
+    return $permalink;
+}
 
-    if ( ! $template_slug ) {
-        return 'Default Template';
+
+add_action('init', 'add_webinars_custom_rewrite_rule');
+function add_webinars_custom_rewrite_rule() {
+    add_rewrite_rule(
+        '^resources/webinars/([^/]+)/?$',
+        'index.php?post_type=post&name=$matches[1]',
+        'top'
+    );
+}
+
+add_action('template_redirect', 'redirect_old_webinar_urls');
+function redirect_old_webinar_urls() {
+    if (!is_single() || is_admin()) {
+        return;
     }
 
-    // Try to read the name from the template file header
-    $template_path = locate_template( $template_slug );
-    if ( $template_path ) {
-        $data = get_file_data( $template_path, [ 'Template Name' => 'Template Name' ] );
-        if ( ! empty( $data['Template Name'] ) ) {
-            return $data['Template Name'];
+    global $post;
+    if ($post && $post->post_type === 'post') {
+        $categories = get_the_category($post->ID);
+        if ($categories) {
+            foreach ($categories as $category) {
+                if ($category->slug === 'webinars') {
+                    $new_url = home_url('/resources/webinars/' . $post->post_name . '/');
+                    if (!preg_match('~/resources/webinars/~', $_SERVER['REQUEST_URI'])) {
+                        wp_redirect($new_url, 301);
+                        exit;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*WEBINAR - Resource Redirection Code END*/
+
+
+// Yost SEO sitemap add resources in resource category post url
+add_filter('wpseo_xml_sitemap_post_url', 'custom_webinars_sitemap_url', 10, 2);
+
+function custom_webinars_sitemap_url($url, $post) {
+    if ($post->post_type === 'post') {
+        
+        $categories = get_the_category($post->ID);
+
+        if ($categories) {
+            foreach ($categories as $category) {
+                if ($category->slug === 'webinars') {
+                    return home_url('/resources/webinars/' . $post->post_name . '/');
+                }
+            }
         }
     }
 
-    return $template_slug;
+    return $url;
 }
 
 
 //For searching apps 
-/**
- * Handles the AJAX search for apps by keyword.
- */
 function apps_ajax_search() {
 
     //check_ajax_referer('apps_search_nonce', 'nonce');
@@ -2664,18 +2660,6 @@ function apps_ajax_search() {
         'posts_per_page' => -1,
         's'              => $search,
         'search_title_only' => true,
-          'meta_query'     => array(
-          'relation' => 'OR',
-          array(
-              'key'     => 'coming_soon',
-              'compare' => 'NOT EXISTS', // if field doesn't exist
-          ),
-          array(
-              'key'     => 'coming_soon',
-              'value'   => '1',
-              'compare' => '!=', // exclude Yes
-          ),
-      ),
     );
 
     $query = new WP_Query($args);
@@ -2699,7 +2683,7 @@ function apps_ajax_search() {
                 </div>
 
                 <div class="app-link">
-                    <a href="<?php echo esc_url($permalink); ?>">Learn more →</a>
+                    <a target="_blank" href="<?php echo esc_url($permalink); ?>">Learn more →</a>
                 </div>
             </div>
             <?php
@@ -2716,13 +2700,6 @@ add_action('wp_ajax_apps_search', 'apps_ajax_search');
 add_action('wp_ajax_nopriv_apps_search', 'apps_ajax_search');
 
 //For search app title only
-/**
- * Restricts the WordPress search query to post titles for the apps search flow.
- *
- * @param string $search Search SQL.
- * @param object $wp_query Current query object.
- * @return string Updated search SQL.
- */
 function apps_search_by_title_only( $search, $wp_query ) {
     global $wpdb;
 
@@ -2746,13 +2723,27 @@ function apps_search_by_title_only( $search, $wp_query ) {
 add_filter( 'posts_search', 'apps_search_by_title_only', 10, 2 );
 
 
+add_action('wp_footer', function() {
+?>
 
+<script type="text/javascript"
+  src="https://www.gartner.com/peer-insights/vendor-portal/public/Widget/js/widget.js">
+</script>
 
-/**
- * Adds custom styling to the navigation menu admin screen.
- *
- * @param string $hook Current admin page hook.
- */
+<script type="text/javascript">
+  GartnerPI_Widget({
+    size: "line",
+    theme: "light",
+    sourcingLink: "https://gtnr.io/08LNDGJyQ",
+    widget_id: "ZjczYzNiMzktNGZlNi00ZmZhLWE2ZmItZjFlNmY1Y2Q3OGFl",
+    version: "2",
+    container: document.querySelector("#gartner-widget")
+  });
+</script>
+
+<?php
+});
+
 function custom_admin_menu_css($hook) {
     if ($hook !== 'nav-menus.php') {
         return;
@@ -2773,154 +2764,263 @@ add_action( 'do_feed_rss2', 'ntc_disable_post_feeds', 1 );
 add_action( 'do_feed_atom', 'ntc_disable_post_feeds', 1 );
 
 function ntc_disable_post_feeds() {
-	if ( is_singular( 'post' ) ) {
-		wp_redirect( get_permalink(), 301 );
+
+	if ( is_feed() && is_singular( 'post' ) ) {
+		wp_safe_redirect( get_permalink(), 301 );
 		exit;
 	}
 }
 
-//  new custom code to add image upload to blog listing page in admin area
 
-/**
- * Quick Featured Image Uploader for Posts List Table
- */
-
-// 1. Register a new custom column in the Posts table
-add_filter( 'manage_posts_columns', 'add_quick_image_column' );
-function add_quick_image_column( $columns ) {
-    // Inserts the column right before the Date column
-    $new_columns = array();
-    foreach ( $columns as $key => $title ) {
-        if ( $key === 'date' ) {
-            $new_columns['quick_featured_image'] = __( 'Featured Image', 'textdomain' );
-        }
-        $new_columns[ $key ] = $title;
-    }
-    return $new_columns;
-}
-
-// 2. Render the column content (Image preview + Quick Upload Button)
-add_action( 'manage_posts_custom_column', 'render_quick_image_column', 10, 2 );
-function render_quick_image_column( $column, $post_id ) {
-    if ( 'quick_featured_image' !== $column ) {
-        return;
-    }
-
-    $thumbnail_id = get_post_thumbnail_id( $post_id );
-    $image_url    = $thumbnail_id ? wp_get_attachment_image_url( $thumbnail_id, 'thumbnail' ) : '';
-
-    echo '<div class="quick-img-wrapper" data-post-id="' . esc_attr( $post_id ) . '" style="display:flex; flex-direction:column; align-items:flex-start; gap:6px;">';
-    
-    // Preview container
-    if ( $image_url ) {
-        echo '<img class="quick-img-preview" src="' . esc_url( $image_url ) . '" style="width:50px; height:50px; object-fit:cover; border-radius:4px;" />';
-    } else {
-        echo '<div class="quick-img-preview" style="width:50px; height:50px; background:#f0f0f1; border:1px dashed #c3c4c7; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#8c8f94; font-size:10px;">No Img</div>';
-    }
-
-    // Quick action button
-    echo '<button type="button" class="button button-small select-quick-image-btn">' . ( $thumbnail_id ? 'Change' : 'Upload' ) . '</button>';
-    echo '</div>';
-}
-
-// 3. Enqueue WP Media scripts and inline JS on the Posts list page
-add_action( 'admin_enqueue_scripts', 'enqueue_quick_image_scripts' );
-function enqueue_quick_image_scripts( $hook ) {
-    // Only run on the Posts listing page (edit.php)
-    if ( 'edit.php' !== $hook ) {
-        return;
-    }
-
-    // Enqueue WP Media Library assets
-    wp_enqueue_media();
-
-    // Attach inline script for handling the Media Modal & AJAX
-    $inline_js = "
-    jQuery(document).ready(function($) {
-        $(document).on('click', '.select-quick-image-btn', function(e) {
-            e.preventDefault();
-
-            var \$button = $(this);
-            var \$wrapper = \$button.closest('.quick-img-wrapper');
-            var postId = \$wrapper.data('post-id');
-
-            // Open WP Media Frame
-            var frame = wp.media({
-                title: 'Select or Upload Featured Image',
-                button: { text: 'Set as Featured Image' },
-                multiple: false
-            });
-
-            frame.on('select', function() {
-                var attachment = frame.state().get('selection').first().toJSON();
-
-                // Show visual feedback
-                \$button.text('Saving...').prop('disabled', true);
-
-                // Send AJAX request to update post thumbnail
-                $.post(ajaxurl, {
-                    action: 'save_quick_featured_image',
-                    post_id: postId,
-                    thumbnail_id: attachment.id,
-                    nonce: '" . wp_create_nonce( 'quick_image_nonce' ) . "'
-                }, function(response) {
-                    if (response.success) {
-                        var thumbUrl = attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
-                        \$wrapper.find('.quick-img-preview').replaceWith(
-                            '<img class=\"quick-img-preview\" src=\"' + thumbUrl + '\" style=\"width:50px; height:50px; object-fit:cover; border-radius:4px;\" />'
-                        );
-                        \$button.text('Change').prop('disabled', false);
-                    } else {
-                        alert('Failed to update image.');
-                        \$button.text('Retry').prop('disabled', false);
-                    }
-                });
-            });
-
-            frame.open();
-        });
-    });
-    ";
-
-    wp_add_inline_script( 'media-editor', $inline_js );
-}
-
-// 4. Handle AJAX request to save the featured image
-add_action( 'wp_ajax_save_quick_featured_image', 'handle_save_quick_featured_image' );
-function handle_save_quick_featured_image() {
-    check_ajax_referer( 'quick_image_nonce', 'nonce' );
-
-    $post_id      = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
-    $thumbnail_id = isset( $_POST['thumbnail_id'] ) ? intval( $_POST['thumbnail_id'] ) : 0;
-
-    if ( ! current_user_can( 'edit_post', $post_id ) ) {
-        wp_send_json_error( 'Permission denied.' );
-    }
-
-    if ( $post_id && $thumbnail_id ) {
-        set_post_thumbnail( $post_id, $thumbnail_id );
-        wp_send_json_success();
-    }
-
-    wp_send_json_error( 'Invalid data.' );
-}
 // add json ld schema to apps pages
 
 add_action( 'wp_head', 'ntc_output_faq_schema' );
 
 function ntc_output_faq_schema() {
+    if (  ! is_singular( 'blog' ) && ! is_singular() && ! is_page() ) {
+        return;
+    }
 
-	if ( ! is_page() && ! is_singular( 'apps' ) && ! is_singular( 'blog' ) ) {
-		return;
-	}
+    $faq_schema = get_field( 'faq_schema' );
 
-	$faq_schema = get_field( 'faq_schema' );
+    if ( empty( $faq_schema ) ) {
+    return;
+    }
 
-	if ( empty( $faq_schema ) ) {
-		return;
-	}
+    echo '<script type="application/ld+json">';
+    echo wp_kses( $faq_schema, array() );
+    echo '</script>';
 
-	echo '<script type="application/ld+json">';
-	echo wp_kses( $faq_schema, array() );
-	echo '</script>';
 }
+
+/**
+ * Register 'Hosts' Taxonomy for Posts
+ * 
+ * Creates a new taxonomy to categorize hosts/presenters for webinar posts.
+ * 
+ * @since 1.0.0
+ */
+function ntc_register_hosts_taxonomy() {
+	$labels = array(
+		'name'              => _x( 'Speakers', 'taxonomy general name', 'network-to-code' ),
+		'singular_name'     => _x( 'Speaker', 'taxonomy singular name', 'network-to-code' ),
+		'search_items'      => __( 'Search Speakers', 'network-to-code' ),
+		'all_items'         => __( 'All Speakers', 'network-to-code' ),
+		'parent_item'       => __( 'Parent Speaker', 'network-to-code' ),
+		'parent_item_colon' => __( 'Parent Speaker:', 'network-to-code' ),
+		'edit_item'         => __( 'Edit Speaker', 'network-to-code' ),
+		'update_item'       => __( 'Update Speaker', 'network-to-code' ),
+		'add_new_item'      => __( 'Add New Speaker', 'network-to-code' ),
+		'new_item_name'     => __( 'New Speaker Name', 'network-to-code' ),
+		'menu_name'         => __( 'Speakers', 'network-to-code' ),
+	);
+
+	$args = array(
+		'hierarchical'      => false,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'host' ),
+		'show_in_rest'      => true,
+	);
+
+	register_taxonomy( 'hosts', array( 'post' ), $args );
+}
+add_action( 'init', 'ntc_register_hosts_taxonomy', 0 );
+
+/**
+ * Register Hosts Metabox for Webinar Posts Only
+ * 
+ * Adds a custom metabox for selecting hosts, visible only for posts 
+ * with the 'webinars' category.
+ * 
+ * @since 1.0.0
+ */
+function ntc_register_hosts_metabox() {
+	add_meta_box(
+		'ntc_hosts_metabox',
+		__( 'Select Hosts', 'network-to-code' ),
+		'ntc_render_hosts_metabox',
+		'post',
+		'side',
+		'default'
+	);
+}
+add_action( 'add_meta_boxes', 'ntc_register_hosts_metabox' );
+
+/**
+ * Render Hosts Metabox
+ * 
+ * Displays a multiselect dropdown for hosts, only shown for posts 
+ * with the 'webinars' category.
+ * 
+ * @param WP_Post $post The post object.
+ * @since 1.0.0
+ */
+function ntc_render_hosts_metabox( $post ) {
+	// Check if this post has the 'webinars' category
+	$webinars_category = get_category_by_slug( 'webinars' );
+	
+	if ( ! $webinars_category ) {
+		echo '<p>' . esc_html__( 'Webinars category not found.', 'network-to-code' ) . '</p>';
+		return;
+	}
+
+	$post_categories = wp_get_post_categories( $post->ID );
+	
+	// Hide metabox if post doesn't have webinars category
+	if ( ! in_array( $webinars_category->term_id, $post_categories ) ) {
+		echo '<p>' . esc_html__( 'This metabox is only available for posts in the Webinars category.', 'network-to-code' ) . '</p>';
+		return;
+	}
+
+	// Get all hosts
+	$hosts = get_terms( array(
+		'taxonomy' => 'hosts',
+		'hide_empty' => false,
+	) );
+
+	if ( is_wp_error( $hosts ) ) {
+		echo '<p>' . esc_html__( 'Error loading hosts.', 'network-to-code' ) . '</p>';
+		return;
+	}
+
+	// Get current post's selected hosts
+	$selected_hosts = wp_get_post_terms( $post->ID, 'hosts', array( 'fields' => 'ids' ) );
+	
+	if ( is_wp_error( $selected_hosts ) ) {
+		$selected_hosts = array();
+	}
+
+	// Output nonce field
+	wp_nonce_field( 'ntc_hosts_nonce', 'ntc_hosts_nonce_field' );
+
+	echo '<div style="margin-top: 10px;">';
+	echo '<label for="ntc_hosts_select" style="display: block; margin-bottom: 8px;">';
+	echo esc_html__( 'Select Hosts:', 'network-to-code' );
+	echo '</label>';
+
+	if ( ! empty( $hosts ) ) {
+		echo '<select id="ntc_hosts_select" name="ntc_selected_hosts[]" multiple="multiple" style="width: 100%; min-height: 120px; padding: 5px;">';
+		
+		foreach ( $hosts as $host ) {
+			$selected = in_array( $host->term_id, $selected_hosts ) ? 'selected' : '';
+			echo '<option value="' . esc_attr( $host->term_id ) . '" ' . esc_attr( $selected ) . '>';
+			echo esc_html( $host->name );
+			echo '</option>';
+		}
+		
+		echo '</select>';
+	} else {
+		echo '<p style="color: #999;">' . esc_html__( 'No hosts available. Please create hosts first.', 'network-to-code' ) . '</p>';
+	}
+
+	echo '</div>';
+}
+
+/**
+ * Save Hosts Metabox Data
+ * 
+ * Saves the selected hosts for webinar posts. Only processes data 
+ * for posts with the 'webinars' category.
+ * 
+ * @param int $post_id The ID of the post being saved.
+ * @since 1.0.0
+ */
+function ntc_save_hosts_metabox( $post_id ) {
+	// Verify nonce
+	if ( ! isset( $_POST['ntc_hosts_nonce_field'] ) || 
+	     ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ntc_hosts_nonce_field'] ) ), 'ntc_hosts_nonce' ) ) {
+		return;
+	}
+
+	// Check if user has permission to edit the post
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	// Prevent autosave
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check if post is in webinars category
+	$webinars_category = get_category_by_slug( 'webinars' );
+	
+	if ( ! $webinars_category ) {
+		return;
+	}
+
+	$post_categories = wp_get_post_categories( $post_id );
+	
+	// Only save hosts for posts in the webinars category
+	if ( ! in_array( $webinars_category->term_id, $post_categories ) ) {
+		// Clear hosts if post is removed from webinars category
+		wp_set_object_terms( $post_id, array(), 'hosts' );
+		return;
+	}
+
+	// Get and sanitize selected hosts
+	$selected_hosts = isset( $_POST['ntc_selected_hosts'] ) ? array_map( 'absint', wp_unslash( $_POST['ntc_selected_hosts'] ) ) : array();
+
+	// Validate that selected host IDs are valid
+	if ( ! empty( $selected_hosts ) ) {
+		$all_hosts = get_terms( array(
+			'taxonomy' => 'hosts',
+			'fields'   => 'ids',
+			'hide_empty' => false,
+		) );
+
+		if ( ! is_wp_error( $all_hosts ) ) {
+			// Filter to only include valid host IDs
+			$selected_hosts = array_intersect( $selected_hosts, $all_hosts );
+		}
+	}
+
+	// Save the hosts relationship
+	wp_set_object_terms( $post_id, $selected_hosts, 'hosts', false );
+}
+add_action( 'save_post_post', 'ntc_save_hosts_metabox' );
+
+/**
+ * Hide Hosts Metabox from Admin Display if Not Webinar Post
+ * 
+ * Uses CSS to hide the metabox from non-webinar posts. 
+ * This is a fallback to the message shown in ntc_render_hosts_metabox.
+ * 
+ * @since 1.0.0
+ */
+function ntc_hosts_metabox_admin_styles() {
+	$screen = get_current_screen();
+	
+	if ( $screen->id !== 'post' ) {
+		return;
+	}
+
+	global $post;
+	
+	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
+		return;
+	}
+
+	$webinars_category = get_category_by_slug( 'webinars' );
+	
+	if ( ! $webinars_category ) {
+		return;
+	}
+
+	$post_categories = wp_get_post_categories( $post->ID );
+	
+	// Show alert and style if post is not in webinars category
+	if ( ! in_array( $webinars_category->term_id, $post_categories ) ) {
+		echo '<style>
+			#ntc_hosts_metabox {
+				background-color: #f5f5f5;
+				opacity: 0.6;
+			}
+		</style>';
+	}
+}
+add_action( 'admin_head', 'ntc_hosts_metabox_admin_styles' );
+

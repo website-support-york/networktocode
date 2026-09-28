@@ -34,7 +34,7 @@ $template_up = array(
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($className); ?> list-align service-detail pt-0<?php if( !$icon_txt_banner ): ?> no-img<?php endif; ?>" style="background: <?php echo $icon_txt_bg_color; ?>">
       <div class="container">
         <div class="row">
-          <div class="col-lg-10 offset-lg-1">
+          <div class="col-lg-10 offset-lg-1 quote-wrapper">
             <div class="row gy-md-5 gx-md-5">
               <div class="col-md-12 z-1">
                 <?php if( $icon_txt_banner ): ?>

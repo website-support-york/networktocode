@@ -30,6 +30,7 @@ $sef_key_solution_button_popup = get_field('sef_key_solution_button_popup');
 $sef_key_solution_bg_color = get_field('sef_key_solution_bg_color');
 $sef_key_solution_card_color = get_field('sef_key_solution_card_color');
 $bottom_text = get_field('bottom_text');
+$style = get_field('select_style') ? get_field('select_style') : 'style 1';
 ?>
 
 <section id="<?php echo esc_attr($id); ?>" class="<?php echo esc_attr($className); ?> key-solution" style="background-color: <?php echo $sef_key_solution_bg_color; ?>">
@@ -70,11 +71,26 @@ $bottom_text = get_field('bottom_text');
                     '_wp_attachment_image_alt',
                     true
                 );  ?>
-                  <img
-                    src="<?php echo $sef_key_solution_card_icon['url'] ?>"
-                    class="img-fluid"
-                    alt="<?php echo $alt ? $alt : $sef_key_solution_card_title; ?>"
-                  />
+                <?php if($style != 'Style 2') { ?>
+                 
+                    <img
+                      src="<?php echo $sef_key_solution_card_icon['url'] ?>"
+                      class="img-fluid"
+                      alt="<?php echo $alt ? $alt : $sef_key_solution_card_title; ?>"
+                    />
+                   
+                <?php }else{ ?>
+                    <div class="image-hover-wrapper <?php echo $style; ?>">
+                      <img
+                        src="<?php echo $sef_key_solution_card_icon['url'] ?>"
+                        class="img-fluid"
+                        alt="<?php echo $alt ? $alt : $sef_key_solution_card_title; ?>"
+                      />
+                      <div class="image-overlay">
+                        <span class="learn-more-text"><a href="<?php echo $sef_key_solution_card_button['url'] ?>" target="<?php echo esc_attr($sef_key_solution_card_button['target'] ?? '_self'); ?>"><?php echo $sef_key_solution_card_button['title'] ?></a></span>
+                      </div>
+                    </div>
+                  <?php } ?>
                   <? } ?>
                   <?php if (!empty ($sef_key_solution_card_title )) { ?>
                   <h6><?php echo $sef_key_solution_card_title; ?></h6>
@@ -88,16 +104,21 @@ $bottom_text = get_field('bottom_text');
                   </p>
                   <? } ?>
                   <?php if (!empty ($sef_key_solution_card_button )) { ?>
-                  <a
-                      href="<?php echo $sef_key_solution_card_button['url'] ?>"
-                      target="<?php echo esc_attr($sef_key_solution_card_button['target'] ?? '_self');?>"
-                      <?php if( $sef_key_solution_card_button_popup ): ?>data-cursor="-color-orange" data-bs-toggle="modal" data-bs-target="<?php echo $sef_key_solution_card_button['url'] ?>" <?php endif; ?>
-                      class="btn btn-learn"
-                      data-cursor="-color-orange"
-                      data-cursor="-opaque"
-                    >
-                      <?php echo $sef_key_solution_card_button['title'] ?> <i class="bi bi-arrow-right"></i>
-                    </a>
+                  <?php if($style != 'Style 2') { ?>
+                    <a
+                        href="<?php echo $sef_key_solution_card_button['url'] ?>"
+                        target="<?php echo esc_attr($sef_key_solution_card_button['target'] ?? '_self');?>"
+                        <?php if( $sef_key_solution_card_button_popup ): ?>data-cursor="-color-orange" data-bs-toggle="modal" data-bs-target="<?php echo $sef_key_solution_card_button['url'] ?>" <?php endif; ?>
+                        class="btn btn-learn"
+                        data-cursor="-color-orange"
+                        data-cursor="-opaque"
+                      >
+                        <?php echo $sef_key_solution_card_button['title'] ?> <i class="bi bi-arrow-right"></i>
+                      </a>
+                    <?php } 
+                    //else{
+                      //echo '<div class="key-overlay"></div> ';
+                    //}?>
                   <? } ?>
                 </div>
               </div>

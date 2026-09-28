@@ -33,94 +33,17 @@ $video_case_study_youtube_video_id = get_field('video_case_study_youtube_video_i
 $video_description = get_field('video_description');
 $video_case_study_read_full_case_study_link = get_field('video_case_study_read_full_case_study_link');
 $podcast_miniuts = get_field('podcast_miniuts');
+$recording_poster_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+$recording_poster_alt = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
+$video_preview = get_field('webinar_video_preview_image');
+
+if ( empty( $recording_poster_alt ) ) {
+    $recording_poster_alt = __( 'Webinar recording');
+}
 ?> 
-<?php if( $want_to_add_podcast ):?>
-<section class="vcs2-banner">
-    <div class="container">
-        <div class="row">
-            <?php if (has_post_thumbnail( $post->ID ) ): ?>
-            <div class="col-lg-4 img-box">
-                    <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
-                    <img src="<?php echo $image[0]; ?>" />
-            </div>
-            <?php endif;?>
-            <div class="col-lg-8">
-                <div class="pod-banner">
-                    <?php if(!empty($author_headshotg) || !empty($podcast_authour) ):?>
-                    <div class="author">
-                        <div class="author-img">
-                            <img src="<?php echo $author_headshot['url'];?>" alt="<?php echo $author_headshot['url'];?>" />
-                        </div>
-                        <div class="aut-name">
-                            <?php echo $podcast_authour;?>
-                        </div>
-                    </div>
-                    <?php endif;?>
-                    <div class="pod-content">
-                        <?php if(!empty($heading)):?>
-                        <div class="heading">
-                            <?php echo $heading;?>
-                        </div>
-                        <?php endif;?>
-                        <?php if(!empty($long_heading)):?>
-                            <div class="long-heading">
-                                <?php echo $long_heading;?>
-                            </div>
-                        <?php endif;?>
-                        <?php 
-                            if( $podcast ) {
-                                echo '<audio id="podcastPlayer" controls>';
-                                echo '<source src="' . esc_url($podcast['url']) . '" type="audio/mpeg">';
-                                echo '</audio>';
-                            }
-                        ?>
-                        <div class="date-min">
-                            <?php if(!empty($podcast_date)):?>
-                            <div class="date">
-                                <?php 
-                                try {
-                                    $date_obj = DateTime::createFromFormat('d/m/Y', $podcast_date);
-                                    echo esc_html($date_obj->format('F j, Y')); // September 3, 2025
-                                } catch (Exception $e) {
-                                    // Fallback: just output raw value
-                                    echo esc_html($podcast_date);
-                                }
-                                ?>
-                            </div>
-                            <?php endif;?>
-                            <?php if(!empty($podcast_minut)):?>
-                            <div class="pod-min">
-                                <?php echo $podcast_minut;?>
-                            </div>
-                            <?php endif;?>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-12 title-box vcs-content d-flex align-item-center">
-                <div class="text-start">
-                    <?php if(!empty($title)):?><h3 class="section-title sec-heading"><?php echo $title;?></h3><?php endif;?>
-                    <?php if(!empty($video_description)):?><p class="sub-title"><?php echo $video_description; ?></p><?php endif;?>
-
-                    <div class="single-study">
-                        <div class="btn-wrap d-flex justify-content-between w-100 mt-3">
-                            <!-- <a href="/resources/webinars/" class="btn back-cs" target="">Back to Webinars</a> -->
-                        
-                            <?php if(!empty($video_case_study_read_full_case_study_link)): ?>
-                            <a href="<?php echo $video_case_study_read_full_case_study_link['url']; ?>" class="btn theme-btn" target="<?php echo $video_case_study_read_full_case_study_link['target']; ?>"><?php echo $video_case_study_read_full_case_study_link['title']; ?></a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<?php else:?>
 <!-- Video Case Studies Banner -->
-<section class="vcs-banner">
+<section id="<?php echo esc_attr($id); ?>" class="-vcs-banner webinar_video_wrapper <?php echo esc_attr($className); ?>" >
     <div class="container">
         <div class="row">
             <?php if(!empty($video_case_study_title)):?>
@@ -129,20 +52,31 @@ $podcast_miniuts = get_field('podcast_miniuts');
             </div>
             <?php endif;?>
             <div class="col-md-12">
-                <div class="vcs-banner__iframe">
-                    <div class="video-poster active" id="videoPoster" style="background-image:url('<?php echo get_the_post_thumbnail_url(); ?>')">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                    <?php if(!empty($video_case_study_youtube_video_id)):?>
-                        <iframe id="youtubePlayer" width="560" height="315" src="https://www.youtube.com/embed/<?php echo $video_case_study_youtube_video_id; ?>;?enablejsapi=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen></iframe>
-                    <?php endif;?>
+                <div class="vcs-banner__iframe" style="background-image: url('<?php echo esc_url( $video_preview['url'] ); ?>'); background-size: cover; background-position: center;">
+                    <h2 style="display:none;">Webinar Recording</h2>
+                <?php if ( ! empty( $video_case_study_youtube_video_id ) || ! empty( $recording_poster_url ) ) : ?>
+                        <section class="player" id="recording">
+                            <?php if ( ! empty( $recording_poster_url ) ) : ?>
+                                <img class="player-img" src="<?php echo esc_url( $recording_poster_url ); ?>" alt="<?php echo esc_attr( $recording_poster_alt ); ?>" width="881" height="496" />
+                            <?php endif; ?>
+                            <?php if ( ! empty( $video_case_study_youtube_video_id ) ) : ?>
+                                <button class="play-btn" type="button" aria-label="<?php esc_attr_e( 'Play webinar', 'sef-boilerplate' ); ?>" data-video-id="<?php echo esc_attr( $video_case_study_youtube_video_id ); ?>">
+                                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/play-icon.svg' ); ?>" alt="" width="95" height="94" />
+                                </button>
+                            <?php endif; ?>
+                        </section>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <div class="col-md-12 title-box vcs-content d-flex align-item-center">
                 <div class="text-start">
-                    <?php if(!empty($title)):?><h3 class="section-title sec-heading"><?php echo $title;?></h3><?php endif;?>
-                    <?php if(!empty($video_description)):?><p class="sub-title"><?php echo $video_description; ?></p><?php endif;?>
+                    <?php if(!empty($title)):?><h2 class="section-title sec-heading"><?php echo $title;?></h2><?php endif;?>
+                    <?php if(!empty($video_description)):?>
+                        <div class="webinar_description_content">
+                            <?php echo wp_kses_post( $video_description ); ?>
+                        </div>
+                    <?php endif;?>
 
                     <div class="single-study">
                         <div class="btn-wrap d-flex justify-content-between w-100 mt-3">
@@ -158,48 +92,138 @@ $podcast_miniuts = get_field('podcast_miniuts');
             </div>
         </div>
     </div>
-</section>
-<?php endif; ?>
+ </section>
+
 <script>
 
-	jQuery('.video-poster i').on('click',function(){
-		jQuery('.video-poster').removeClass('active');
-		seekToTime(00,false);
-	})
-	window.seekToTime = function(seconds,doScroll = true) {
-		const player = document.getElementById("youtubePlayer");
-		const videoId = '<?php echo get_field('video_case_study_youtube_video_id'); ?>';
-		const autoplay = 1;
-
-		player.src = `https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=${autoplay}`;
-
-		if (doScroll) {
-			setTimeout(() => {
-				// const wrapper = document.querySelector('.vcs-banner h1');
-				// const rect = wrapper.getBoundingClientRect();
-				// const offsetTop = window.pageYOffset + rect.top;
-	
-				// Define top offset based on screen width
-				// const offsetPadding = window.innerWidth > 768 ? 50 : 60;
-	
-				window.scrollTo({
-					behavior: 'smooth'
-				});
-				jQuery('.video-poster').removeClass('active');
-				document.querySelector('.vcs-banner h1').scrollIntoView({ behavior: 'smooth' });
-			}, 300);
+	function normalizeTimeToSeconds(value) {
+		if (typeof value === 'number') {
+			return value;
 		}
+
+		if (typeof value !== 'string') {
+			return 0;
+		}
+
+		var cleanValue = value.trim();
+		if (!cleanValue) {
+			return 0;
+		}
+
+		if (/^\d+$/.test(cleanValue)) {
+			return parseInt(cleanValue, 10);
+		}
+
+		var parts = cleanValue.split(':').map(function(part) {
+			return parseInt(part, 10) || 0;
+		}).reverse();
+
+		var seconds = 0;
+		if (parts[0] !== undefined) {
+			seconds += parts[0];
+		}
+		if (parts[1] !== undefined) {
+			seconds += parts[1] * 60;
+		}
+		if (parts[2] !== undefined) {
+			seconds += parts[2] * 3600;
+		}
+
+		return seconds;
 	}
+
+	document.querySelectorAll('.webinar_video_wrapper .play-btn').forEach(function (button) {
+		button.addEventListener('click', function () {
+			var player = button.closest('.player');
+			var videoId = button.getAttribute('data-video-id');
+			var iframe = document.createElement('iframe');
+
+			iframe.id = 'youtubePlayer';
+			iframe.src = 'https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1&rel=0';
+			iframe.title = 'Webinar recording';
+			iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+			iframe.allowFullscreen = true;
+
+			player.replaceChildren(iframe);
+		});
+	});
+
+    window.seekToTime = function(seconds, doScroll = true) {
+
+        const timeInSeconds = normalizeTimeToSeconds(seconds);
+        const videoId = '<?php echo get_field('video_case_study_youtube_video_id'); ?>';
+
+        let iframe = document.getElementById('youtubePlayer');
+
+        // Create iframe if it hasn't been initialized yet
+        if (!iframe) {
+            const player = document.querySelector('.webinar_video_wrapper .player');
+
+            if (!player) {
+                return;
+            }
+
+            iframe = document.createElement('iframe');
+
+            iframe.id = 'youtubePlayer';
+            iframe.title = 'Webinar recording';
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+            iframe.allowFullscreen = true;
+
+            player.replaceChildren(iframe);
+        }
+
+        // Set the video and timestamp
+        iframe.src =
+            'https://www.youtube.com/embed/' +
+            encodeURIComponent(videoId) +
+            '?autoplay=1&rel=0&start=' +
+            timeInSeconds;
+
+        if (doScroll) {
+            setTimeout(() => {
+
+                jQuery('.video-poster').removeClass('active');
+
+                const webinarTitle =
+                    document.querySelector('.webinar_video_wrapper h1');
+
+                if (webinarTitle) {
+                    webinarTitle.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
+            }, 300);
+        }
+    };
 
    jQuery(document).ready(function($){
     window.jumpTo = function(seconds) {
-        var player = document.getElementById("podcastPlayer");
-        if (player) {
-            player.currentTime = seconds;
-            player.play();
+        var player = document.getElementById("youtubePlayer") || document.getElementById("podcastPlayer");
+        var timeInSeconds = normalizeTimeToSeconds(seconds);
 
+        if (!player) {
+            return;
+        }
+
+        if (typeof player.currentTime !== 'undefined') {
+            player.currentTime = timeInSeconds;
+            if (typeof player.play === 'function') {
+                player.play();
+            }
+        } else if (player.tagName === 'IFRAME') {
+            var iframeSrc = new URL(player.src || 'https://www.youtube.com/embed');
+            iframeSrc.searchParams.set('start', String(timeInSeconds));
+            iframeSrc.searchParams.set('autoplay', '1');
+            player.src = iframeSrc.toString();
+        }
+
+        var banner = $('.vcs2-banner, .webinar_video_wrapper');
+        if (banner.length) {
             $('html, body').animate({
-                scrollTop: $(".vcs2-banner").offset().top
+                scrollTop: banner.offset().top
             }, 800);
         }
     }

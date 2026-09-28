@@ -591,7 +591,7 @@ $sef_description = get_field('sef_description');
             </div>
           </div>
 
-          <div class="col-lg-6">
+          <div class="col-lg-6 training-text">
             <div
               class="title-box text-start wow animate__animated animate__fadeInUp title-desc"
             >
